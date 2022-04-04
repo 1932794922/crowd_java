@@ -35,7 +35,6 @@ public class CrowdTest {
 
     private Logger logger =  LoggerFactory.getLogger(CrowdTest.class);
 
-
     @Test
     public void getPageInfoTest() {
         PageInfo<Admin> pageInfo = adminService.getPageInfo("", 2, 5);
