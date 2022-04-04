@@ -36,6 +36,21 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
         <!--装配数据源-->
         <property name="dataSource" ref="dataSource"/>
+
+        <!-- 配置spring插件-->
+        <property name="plugins">
+            <!-- 配置mybatis分页插件 -->
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--分页合理化参数-->
+                        <props>
+                            <prop key="reasonable" >true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
     <!-- 配置 mapperScannerConfigurer来扫描Mapper所在的包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">

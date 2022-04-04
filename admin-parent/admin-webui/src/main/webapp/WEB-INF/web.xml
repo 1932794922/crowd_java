@@ -55,6 +55,6 @@
     <!-- 替换404页面 -->
     <error-page>
         <error-code>404</error-code>
-        <location>/44</location>
+        <location>/</location>
     </error-page>
 </web-app>

@@ -8,11 +8,20 @@
     <!--    1.配置扫描包-->
     <context:component-scan base-package="xiaozaiyi.crowd" use-default-filters="true">
         <!-- 只扫描控制器-->
-<!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+        <!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     </context:component-scan>
     <!--    2.两个标准配置-->
     <!-- 将SpringMVC不能处理的请求交给Tomcat,动态静态资源都能访问成功-->
     <mvc:default-servlet-handler/>
     <!--    注解驱动-->
     <mvc:annotation-driven/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 配置要拦截的路径-->
+            <mvc:mapping path="/**"/>
+            <!--不拦截路径-->
+            <mvc:exclude-mapping path="/admin/login"/>
+            <bean id="interceptor" class="xiaozaiyi.crowd.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

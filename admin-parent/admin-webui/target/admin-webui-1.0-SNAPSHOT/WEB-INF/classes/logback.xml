@@ -21,4 +21,5 @@
     <!-- 根据特殊需求指定局部日志级别 -->
     <logger name="xiaozaiyi.crowd.mapper.*" level="DEBUG"/>
     <logger name="xiaozaiyi.crowd.controller.*" level="DEBUG"/>
+
 </configuration>

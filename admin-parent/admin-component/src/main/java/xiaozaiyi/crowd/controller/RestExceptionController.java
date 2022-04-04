@@ -1,5 +1,6 @@
 package xiaozaiyi.crowd.controller;
 
+
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,7 +37,8 @@ public class RestExceptionController {
      */
     @ExceptionHandler({HttpMessageNotReadableException.class, MissingServletRequestParameterException.class})
     @ResponseBody
-    public ResultEntity requestNotReadable() {
+    public ResultEntity requestNotReadable(Exception e) {
+        e.printStackTrace();
         return ResultEntity.error(400, "数据类型不匹配");
     }
 
@@ -47,14 +49,15 @@ public class RestExceptionController {
      */
     @ExceptionHandler({NoHandlerFoundException.class})
     @ResponseBody
-    public ResultEntity NoResourceException() {
-        System.out.println("NoResourceException");
+    public ResultEntity NoResourceException(NoHandlerFoundException e) {
+        e.printStackTrace();
         return ResultEntity.error(404, "请求地址不存在");
     }
 
     @ExceptionHandler({Exception.class})
     @ResponseBody
-    public ResultEntity server500() {
+    public ResultEntity server500(Exception e) {
+        e.printStackTrace();
         return ResultEntity.error(500, "未知错误");
     }
 

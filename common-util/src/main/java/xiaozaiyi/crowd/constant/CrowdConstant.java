@@ -13,6 +13,7 @@ public class CrowdConstant {
 
     public static final String LOGIN_FAILED = "登录失败";
 
-
     public static final String MESSAGE_ERROR_404 = "访问地址不存在";
+    public static final String NO_AUTHORIZATION = "没有权限";
+
 }

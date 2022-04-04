@@ -28,4 +28,8 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    List<Admin> selectAdminByKeyWord(String keyWord);
+
+    int batchDeleteByIds(List<Integer> ids);
 }
