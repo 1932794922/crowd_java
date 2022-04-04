@@ -33,3 +33,6 @@ hs_err_pid*
 
 crowd_vue
 crowd_vue/*
+/common-reverse/
+/target/
+/admin-parent/admin-entity/target/
