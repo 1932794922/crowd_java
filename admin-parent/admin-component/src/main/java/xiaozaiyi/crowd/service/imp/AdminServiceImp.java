@@ -77,19 +77,20 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
-    public int deleteAdmin(Integer id) {
-        return adminMapper.deleteByPrimaryKey(id);
+    public boolean deleteAdmin(Integer id) {
+        return adminMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
-    public int updateAdmin(Admin admin) {
+    public boolean updateAdmin(Admin admin) {
         String nwePassword = Objects.requireNonNull(CrowedUtils.md5(admin.getUserPswd())).toUpperCase();
         admin.setUserPswd(nwePassword);
-        return adminMapper.updateByPrimaryKeySelective(admin);
+        int i = adminMapper.updateByPrimaryKeySelective(admin);
+        return i > 0;
     }
 
     @Override
-    public int addAdmin(Admin admin) {
+    public boolean addAdmin(Admin admin) {
         String nwePassword = Objects.requireNonNull(CrowedUtils.md5(admin.getUserPswd())).toUpperCase();
         admin.setUserPswd(nwePassword);
         // 创建时间
@@ -97,11 +98,11 @@ public class AdminServiceImp implements AdminService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createTime = simpleDateFormat.format(date);
         admin.setCreateTime(createTime);
-        return adminMapper.insert(admin);
+        return adminMapper.insert(admin) > 0;
     }
 
     @Override
-    public int batchDeleteByIds(List<Integer> ids) {
-        return adminMapper.batchDeleteByIds(ids);
+    public boolean batchDeleteByIds(List<Integer> ids) {
+        return adminMapper.batchDeleteByIds(ids) > 0;
     }
 }

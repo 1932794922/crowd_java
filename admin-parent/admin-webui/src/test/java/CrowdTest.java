@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import xiaozaiyi.crowd.entity.Admin;
+import xiaozaiyi.crowd.entity.Role;
 import xiaozaiyi.crowd.mapper.AdminMapper;
+import xiaozaiyi.crowd.mapper.RoleMapper;
 import xiaozaiyi.crowd.service.AdminService;
 import xiaozaiyi.crowd.util.ResultEntity;
 
@@ -33,6 +35,9 @@ public class CrowdTest {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
     private Logger logger =  LoggerFactory.getLogger(CrowdTest.class);
 
     @Test
@@ -40,6 +45,14 @@ public class CrowdTest {
         PageInfo<Admin> pageInfo = adminService.getPageInfo("", 2, 5);
         logger.info(pageInfo.toString());
 
+    }
+
+
+    @Test
+    public void savaRoleTest() {
+        for (int i = 0; i < 284; i++) {
+            roleMapper.insert(new Role(null, "ROLE" + i));
+        }
     }
 
 

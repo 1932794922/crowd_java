@@ -1,12 +1,14 @@
 package xiaozaiyi.crowd.mapper;
 
 import org.apache.ibatis.annotations.Param;
+
 import xiaozaiyi.crowd.entity.Admin;
 import xiaozaiyi.crowd.entity.AdminExample;
 
 import java.util.List;
 
 public interface AdminMapper {
+
     long countByExample(AdminExample example);
 
     int deleteByExample(AdminExample example);

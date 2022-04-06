@@ -25,6 +25,7 @@ import java.util.Map;
  */
 @Controller
 @ResponseBody
+@RequestMapping("admin")
 public class AdminController {
 
     @Autowired
@@ -32,15 +33,15 @@ public class AdminController {
 
     private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-    @RequestMapping("/admin/login")
+    @RequestMapping("login")
     public ResultEntity adminLogin(@RequestBody Admin admin) {
         Admin AdminBd = adminService.getAdminByLoginAcct(admin.getLoginAcct(), admin.getUserPswd());
         // 把 查询到的Admin保存到session中
         logger.info(AdminBd.toString());
-        return ResultEntity.success("登录成功").add("sessionId", "123456");
+        return ResultEntity.success(CrowdConstant.LOGIN_SUCCESS).add("sessionId", "123456");
     }
 
-    @RequestMapping("/admin/list")
+    @RequestMapping("list")
     public ResultEntity getAdminList(@RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,
                                      @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
                                      @RequestParam(value = "pageSize", defaultValue = "20", required = false) Integer pageSize) {
@@ -53,41 +54,38 @@ public class AdminController {
                 .add("total", pageInfo.getTotal());
     }
 
-    @RequestMapping("admin/delete")
-    public ResultEntity deleteAdmin(@RequestBody Map<String, Object> map) {
-        List<Integer> ids = (List<Integer>) map.get("id"); // 获取前端传过来的ids
-        logger.info(map.toString());
-        System.out.println(ids);
-        int i;
+    @RequestMapping("delete")
+    public ResultEntity deleteAdmin(@RequestBody Map<String, List<Integer>> map) {
+        List<Integer> ids = map.get("id"); // 获取前端传过来的ids
+        boolean success;
         // 判断是否是批量删除
         if (ids.size() > 1) {
-            i = adminService.batchDeleteByIds(ids);
+            success = adminService.batchDeleteByIds(ids);
         } else {
-            i = adminService.deleteAdmin(ids.get(0));
+            success = adminService.deleteAdmin(ids.get(0));
         }
-
-        if (i > 0) {
-            return ResultEntity.success(200, "删除成功");
+        if (!success) {
+            return ResultEntity.error(100, CrowdConstant.DELETE_FAILED);
         }
-        return ResultEntity.error(100, "删除失败");
+        return ResultEntity.success(200, CrowdConstant.DELETE_SUCCESS);
     }
 
-    @RequestMapping("admin/update")
+    @RequestMapping("update")
     public ResultEntity updateAdmin(@RequestBody Admin admin) {
-        int i = adminService.updateAdmin(admin);
-        if (i > 0) {
-            return ResultEntity.success(200, "更新成功");
+        boolean success = adminService.updateAdmin(admin);
+        if (!success) {
+            return ResultEntity.success(100, CrowdConstant.UPDATE_FAILED);
         }
-        return ResultEntity.success(100, "更新失败");
+        return ResultEntity.success(200, CrowdConstant.UPDATE_SUCCESS);
     }
 
-    @RequestMapping("admin/add")
+    @RequestMapping("add")
     public ResultEntity addAdmin(@RequestBody Admin admin) {
-        int i = adminService.addAdmin(admin);
-        if (i > 0) {
-            return ResultEntity.success(200, "添加成功");
+        boolean success = adminService.addAdmin(admin);
+        if (!success) {
+            return ResultEntity.success(100, CrowdConstant.ADD_FAILED);
         }
-        return ResultEntity.success(100, "添加失败");
+        return ResultEntity.success(200, CrowdConstant.ADD_SUCCESS);
     }
 
     /**

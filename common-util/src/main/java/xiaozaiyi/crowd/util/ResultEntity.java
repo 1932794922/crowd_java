@@ -20,9 +20,11 @@ public class ResultEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String SUCCESS = "success";
+
     public static final String ERROR = "error";
 
     public static final Integer SUCCESS_CODE = 200;
+
     public static final Integer ERRORS_CODE = 100;
 
     // 状态码 200成功  100失败
@@ -50,6 +52,7 @@ public class ResultEntity {
     public static ResultEntity success() {
         return new ResultEntity(SUCCESS_CODE, SUCCESS);
     }
+
     public static ResultEntity success(String message) {
         return new ResultEntity(SUCCESS_CODE, message);
     }

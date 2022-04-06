@@ -24,7 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if ("Bearer null".equals(authorization) || authorization == null) {
             throw new CustomException(401, CrowdConstant.NO_AUTHORIZATION);
         }
-
         return true;
     }
 

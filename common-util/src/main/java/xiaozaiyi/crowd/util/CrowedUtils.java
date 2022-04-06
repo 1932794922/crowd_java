@@ -2,9 +2,13 @@ package xiaozaiyi.crowd.util;
 
 import xiaozaiyi.crowd.constant.CrowdConstant;
 
+import java.lang.reflect.ParameterizedType;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author : Crazy_August
@@ -14,9 +18,10 @@ import java.security.NoSuchAlgorithmException;
 public class CrowedUtils {
 
     /**
-     *  md5加密
+     * md5加密
+     *
      * @param source 要加密字符串
-     * @return  加密后字符串
+     * @return 加密后字符串
      */
     public static String md5(String source) {
         // 1. 判断字符是否有效

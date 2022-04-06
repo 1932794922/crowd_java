@@ -17,11 +17,11 @@ public interface AdminService {
 
     PageInfo<Admin> getPageInfo(String keyWord, Integer pageNum, Integer pageSize);
 
-    int deleteAdmin(Integer id);
+    boolean deleteAdmin(Integer id);
 
-    int updateAdmin(Admin admin);
+    boolean updateAdmin(Admin admin);
 
-    int addAdmin(Admin admin);
+    boolean addAdmin(Admin admin);
 
-    int batchDeleteByIds(List<Integer> id);
+    boolean batchDeleteByIds(List<Integer> id);
 }
