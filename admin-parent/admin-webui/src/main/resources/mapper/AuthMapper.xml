@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaozaiyi.crowd.mapper.AuthMapper">
+    <resultMap id="BaseResultMap" type="xiaozaiyi.crowd.entity.Auth">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="label" jdbcType="VARCHAR" property="label"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id
+        , name, label, category_id
+    </sql>
+
+    <select id="selectNoAssignAuthyRoleId" resultMap="BaseResultMap">
+        SELECT id, category_id, name, label
+        FROM t_auth
+        WHERE category_id is not null
+          and id NOT IN (
+            SELECT auth_id
+            FROM t_inner_role_auth
+            WHERE role_id = #{roleId})
+    </select>
+
+    <select id="selectAssignAuthByRoleId" resultMap="BaseResultMap">
+        SELECT id, category_id, name, label
+        FROM t_auth
+        WHERE category_id is not null
+          and id IN (
+            SELECT auth_id
+            FROM t_inner_role_auth
+            WHERE role_id = #{roleId})
+    </select>
+
+    <select id="selectByExample" parameterType="xiaozaiyi.crowd.entity.AuthExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_auth
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_auth
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_auth
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="xiaozaiyi.crowd.entity.AuthExample">
+        delete from t_auth
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+
+    <delete id="deleteAuthRoleRelationsShip">
+        delete
+        from t_inner_role_auth
+        where role_id = #{roleId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertAuthRoleRelationsShip">
+        <if test="ids != null">
+            insert into t_inner_role_auth(role_id,auth_id) values
+            <foreach collection="ids" item="auth_id" separator=",">
+                <if test="auth_id != null">
+                    (#{id},#{auth_id})
+                </if>
+            </foreach>
+        </if>
+    </insert>
+
+    <insert id="insert" parameterType="xiaozaiyi.crowd.entity.Auth">
+        insert into t_auth (id, name, label,
+                            category_id)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR},
+                #{categoryId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="xiaozaiyi.crowd.entity.Auth">
+        insert into t_auth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="label != null">
+                label,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="label != null">
+                #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="xiaozaiyi.crowd.entity.AuthExample" resultType="java.lang.Long">
+        select count(*) from t_auth
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_auth
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.label != null">
+                label = #{record.label,jdbcType=VARCHAR},
+            </if>
+            <if test="record.categoryId != null">
+                category_id = #{record.categoryId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_auth
+        set id = #{record.id,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR},
+        label = #{record.label,jdbcType=VARCHAR},
+        category_id = #{record.categoryId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="xiaozaiyi.crowd.entity.Auth">
+        update t_auth
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="label != null">
+                label = #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xiaozaiyi.crowd.entity.Auth">
+        update t_auth
+        set name        = #{name,jdbcType=VARCHAR},
+            label       = #{label,jdbcType=VARCHAR},
+            category_id = #{categoryId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
