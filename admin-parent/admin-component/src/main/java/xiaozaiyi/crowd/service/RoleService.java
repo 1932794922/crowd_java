@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import xiaozaiyi.crowd.entity.Role;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoleService {
 
@@ -16,4 +17,14 @@ public interface RoleService {
     boolean batchDeleteByIds(List<Integer> ids);
 
     boolean deleteAdmin(Integer integer);
+
+
+    /**
+     * 获取角色列表
+     * @param id
+     * @return
+     */
+    Map<String, List<Role>> getAdminRole(Integer id);
+
+
 }

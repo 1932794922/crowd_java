@@ -70,14 +70,16 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        id , login_acct,user_pswd, user_name, email, create_time
+        id
+        , login_acct,user_pswd, user_name, email, create_time
     </sql>
     <!--分页查询-->
     <select id="selectAdminByKeyWord" resultMap="BaseResultMap">
-      select id , login_acct,  user_name, email, create_time from t_admin where
-                                                                                          login_acct like concat("%",#{keyWord},"%") or
-        user_name like concat("%",#{keyWord},"%") or
-        email like concat("%",#{keyWord},"%")
+        select id, login_acct, user_name, email, create_time
+        from t_admin
+        where login_acct like concat("%", #{keyWord}, "%")
+           or user_name like concat("%", #{keyWord}, "%")
+           or email like concat("%", #{keyWord}, "%")
     </select>
 
     <select id="selectByExample" parameterType="xiaozaiyi.crowd.entity.AdminExample" resultMap="BaseResultMap">
@@ -118,6 +120,23 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+    <delete id="deleteAdminRoleRelationsShip">
+        delete
+        from t_inner_admin_role
+        where admin_id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertAdminRoleRelationsShip">
+        <if test="ids != null">
+            insert into t_inner_admin_role(admin_id,role_id) values
+            <foreach collection="ids" item="role_id" separator=",">
+                <if test="role_id != null">
+                    (#{id},#{role_id})
+                </if>
+            </foreach>
+        </if>
+    </insert>
+
     <insert id="insert" parameterType="xiaozaiyi.crowd.entity.Admin">
         insert into t_admin (id, login_acct, user_pswd,
                              user_name, email, create_time)

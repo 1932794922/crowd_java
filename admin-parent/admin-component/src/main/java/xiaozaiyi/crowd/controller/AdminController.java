@@ -88,15 +88,6 @@ public class AdminController {
         return ResultEntity.success(200, CrowdConstant.ADD_SUCCESS);
     }
 
-    /**
-     * 映射资源不存在
-     *
-     * @return
-     */
-    @RequestMapping("/")
-    public ResultEntity index() {
-        return ResultEntity.error(404, CrowdConstant.MESSAGE_ERROR_404);
-    }
 
 
 }

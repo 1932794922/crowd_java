@@ -36,3 +36,13 @@ crowd_vue/*
 /common-reverse/
 /target/
 /admin-parent/admin-entity/target/
+/admin-parent/admin-entity/target/*
+/rebel.xml/
+rebel.xml
+/rebel.xml
+resources/rebel.xml
+/common-util/target/
+/admin-parent/admin-component/target/
+/admin-parent/admin-component/target/*
+/admin-parent/admin-webui/target/
+/admin-parent/admin-webui/target/*

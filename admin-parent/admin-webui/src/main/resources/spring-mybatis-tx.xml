@@ -9,19 +9,25 @@
     <!--    1.配置扫描包  主要是将 service 的包加载到ioc容器中-->
     <context:component-scan base-package="xiaozaiyi.crowd.service" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
     </context:component-scan>
+
     <!-- 2.事物控制配置 -->
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 控制数据源-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
     <!--3.配置事物切面-->
     <aop:config>
         <aop:pointcut id="txPoint" expression="execution(* xiaozaiyi.crowd.service..*.*(..))"/>
+<!--        <aop:pointcut id="txPoint" expression="execution(* xiaozaiyi.crowd.service..*.*(..))"/>-->
         <!-- 3.1配置事物增强-->
         <!--将切入点表达式和事务通知关联起来-->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
     </aop:config>
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"  proxy-target-class="true" />
     <!-- 4.配置事务通知-->
     <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
         <tx:attributes>
@@ -30,6 +36,7 @@
             <tx:method name="find*" read-only="true"/>
             <tx:method name="query*" read-only="true"/>
             <tx:method name="count*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
             <!--增删改方法:配置事务传播行为、回滚异常-->
             <!--propagation属性:
                     REQUIRED:默认值，表示当前方法必须工作在事务中，如果当前线程上没有已经开启的事务，则自己开新事务。
@@ -42,11 +49,16 @@
                     默认值 : RuntimeException
                     建议 : 异常就回滚
             -->
+            <tx:method name="saveAdmin*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
             <tx:method name="save*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="add*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
             <tx:method name="update*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
             <tx:method name="remove*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
             <tx:method name="batch*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
         </tx:attributes>
+
     </tx:advice>
 
 

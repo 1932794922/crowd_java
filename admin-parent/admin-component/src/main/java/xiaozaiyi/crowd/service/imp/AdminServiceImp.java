@@ -94,9 +94,11 @@ public class AdminServiceImp implements AdminService {
         String nwePassword = Objects.requireNonNull(CrowedUtils.md5(admin.getUserPswd())).toUpperCase();
         admin.setUserPswd(nwePassword);
         // 创建时间
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String createTime = simpleDateFormat.format(date);
+//        Date date = new Date(System.currentTimeMillis());
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String createTime = simpleDateFormat.format(date);
+        long timeMillis = System.currentTimeMillis();
+        String createTime = String.valueOf(timeMillis);
         admin.setCreateTime(createTime);
         return adminMapper.insert(admin) > 0;
     }
@@ -104,5 +106,18 @@ public class AdminServiceImp implements AdminService {
     @Override
     public boolean batchDeleteByIds(List<Integer> ids) {
         return adminMapper.batchDeleteByIds(ids) > 0;
+    }
+
+    @Override
+    public boolean saveAdminRole(Integer id, List<Integer> ids) {
+        int i = 0;
+        // 1.删除原有的角色
+        i = adminMapper.deleteAdminRoleRelationsShip(id);
+        // 2.添加新的角色
+        if (ids != null && ids.size() > 0) {
+            i = adminMapper.insertAdminRoleRelationsShip(id, ids);
+        }
+        return i > 0;
+
     }
 }

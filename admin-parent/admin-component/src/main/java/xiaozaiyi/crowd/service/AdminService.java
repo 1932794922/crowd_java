@@ -2,8 +2,10 @@ package xiaozaiyi.crowd.service;
 
 import com.github.pagehelper.PageInfo;
 import xiaozaiyi.crowd.entity.Admin;
+import xiaozaiyi.crowd.entity.Role;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : Crazy_August
@@ -24,4 +26,13 @@ public interface AdminService {
     boolean addAdmin(Admin admin);
 
     boolean batchDeleteByIds(List<Integer> id);
+
+    /**
+     * 保存角色和权限的关系
+     * @param id 角色id
+     * @param ids 权限id
+     * @return
+     */
+    boolean saveAdminRole(Integer id, List<Integer> ids);
+
 }

@@ -34,4 +34,18 @@ public interface AdminMapper {
     List<Admin> selectAdminByKeyWord(String keyWord);
 
     int batchDeleteByIds(List<Integer> ids);
+
+    /**
+     * 批量插入管理员和角色的关系
+     * @param id
+     * @param ids
+     * @return
+     */
+    int insertAdminRoleRelationsShip(@Param("id") Integer id,@Param("ids") List<Integer> ids);
+
+    /**
+     * 删除该管理员的所有角色
+     * @param id
+     */
+    int deleteAdminRoleRelationsShip(Integer id);
 }

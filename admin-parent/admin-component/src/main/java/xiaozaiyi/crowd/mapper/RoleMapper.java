@@ -31,4 +31,8 @@ public interface RoleMapper {
     List<Role> selectRoleByKeyWord(String keywords);
 
     int batchDeleteByIds(List<Integer> ids);
+
+    List<Role> selectNoAssignRoleByAdminId(Integer id);
+
+    List<Role> selectAssignRoleByAdminId(Integer id);
 }

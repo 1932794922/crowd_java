@@ -32,4 +32,6 @@ public class CrowdConstant {
     public static final String DELETE_FAILED = "删除失败";
 
     public static final String MENU_IS_NULL = "获取菜单位置失败";
+
+    public static final String SERVER_ERROR = "服务器异常";
 }

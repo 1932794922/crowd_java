@@ -8,7 +8,10 @@ import xiaozaiyi.crowd.entity.Role;
 import xiaozaiyi.crowd.mapper.RoleMapper;
 import xiaozaiyi.crowd.service.RoleService;
 
+import java.sql.Array;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : Crazy_August
@@ -50,4 +53,18 @@ public class RoleServiceImp implements RoleService {
     public boolean deleteAdmin(Integer integer) {
         return roleMapper.deleteByPrimaryKey(integer) > 0;
     }
+
+    @Override
+    public Map<String, List<Role>> getAdminRole(Integer id) {
+        // 查询此用户没有的所有角色
+        List<Role> noAssignRoles = roleMapper.selectNoAssignRoleByAdminId(id);
+        // 查询此用户已经拥有所有的角色
+        List<Role> AssignRoles = roleMapper.selectAssignRoleByAdminId(id);
+        // 将两个集合装配到map中
+        Map<String, List<Role>> roleMap = new HashMap<>();
+        roleMap.put("unChecked", noAssignRoles);
+        roleMap.put("checked", AssignRoles);
+        return roleMap;
+    }
+
 }

@@ -72,6 +72,27 @@
         where name like concat("%", #{keyWords}, "%")
     </select>
 
+    <select id="selectNoAssignRoleByAdminId" resultMap="BaseResultMap">
+        select id, name
+        from t_role
+        where id not in (
+            select role_id
+            from t_inner_admin_role
+            where admin_id = #{id}
+        )
+    </select>
+
+    <select id="selectAssignRoleByAdminId" resultMap="BaseResultMap">
+        select id, name
+        from t_role
+        where id  in (
+            select role_id
+            from t_inner_admin_role
+            where admin_id = #{id}
+        )
+    </select>
+
+
     <select id="selectByExample" parameterType="xiaozaiyi.crowd.entity.RoleExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
