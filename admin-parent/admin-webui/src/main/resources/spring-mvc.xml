@@ -4,20 +4,24 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <import resource="spring-mybatis-tx.xml"/>
+<!--    <import resource="applicationContext.xml"/>-->
+
     <!--SpringMVC的配置文件。包含网站跳转逻辑控制配置-->
     <!--    1.配置扫描包-->
-    <context:component-scan base-package="xiaozaiyi.crowd.controller" use-default-filters="false">
+    <context:component-scan base-package="xiaozaiyi.crowd" use-default-filters="true">
         <!-- 只扫描控制器-->
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
+
     <!--    2.两个标准配置-->
     <!-- 将SpringMVC不能处理的请求交给Tomcat,动态静态资源都能访问成功-->
     <mvc:default-servlet-handler/>
     <!--    注解驱动-->
     <mvc:annotation-driven/>
 
+    <!--使用SpringSecurity后当前自定义的登录拦截器不再使用了   -->
     <mvc:interceptors>
         <mvc:interceptor>
             <!-- 配置要拦截的路径-->
@@ -27,4 +31,5 @@
             <bean id="interceptor" class="xiaozaiyi.crowd.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>

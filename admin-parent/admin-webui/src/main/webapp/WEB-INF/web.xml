@@ -8,7 +8,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:applicationContext.xml</param-value>
+            classpath:applicationContext.xml
+        </param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,8 +22,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                classpath:springmvc.xml
-                classpath:spring-mybatis-tx.xml
+                classpath:spring-mvc.xml
             </param-value>
         </init-param>
         <init-param>
@@ -57,6 +57,28 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- CORS Filter 跨域配置-->
+<!--    <filter>-->
+<!--        <filter-name>CORSFilter</filter-name>-->
+<!--        <filter-class>xiaozaiyi.crowd.filter.CORSFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>CORSFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
+    <!--SpringSecurity核心过滤器链-->
+    <!--springSecurityFilterChain 名词不能修改-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filte.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- 替换404页面 -->
     <error-page>
         <error-code>404</error-code>

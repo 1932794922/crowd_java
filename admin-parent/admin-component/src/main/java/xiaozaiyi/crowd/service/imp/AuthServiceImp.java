@@ -2,6 +2,7 @@ package xiaozaiyi.crowd.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xiaozaiyi.crowd.constant.CrowdConstant;
 import xiaozaiyi.crowd.entity.Auth;
 import xiaozaiyi.crowd.entity.Role;

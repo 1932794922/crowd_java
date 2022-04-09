@@ -4,8 +4,19 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <!--    1.配置扫描包  主要是将 service 的包加载到ioc容器中-->
+    <context:component-scan base-package="xiaozaiyi.crowd" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.security.config.annotation.web.configuration.EnableWebSecurity"/>
+
+    </context:component-scan>
+
     <!--加载外部属性文件-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
+
     <!--配置数据源-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" lazy-init="false">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -52,9 +63,12 @@
             </array>
         </property>
     </bean>
+
     <!-- 配置 mapperScannerConfigurer来扫描Mapper所在的包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="xiaozaiyi.crowd.mapper"/>
     </bean>
+
+
 
 </beans>

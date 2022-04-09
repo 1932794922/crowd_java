@@ -13,8 +13,6 @@ import xiaozaiyi.crowd.mapper.AdminMapper;
 import xiaozaiyi.crowd.service.AdminService;
 import xiaozaiyi.crowd.util.CrowedUtils;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -113,6 +111,7 @@ public class AdminServiceImp implements AdminService {
         int i = 0;
         // 1.删除原有的角色
         i = adminMapper.deleteAdminRoleRelationsShip(id);
+
         // 2.添加新的角色
         if (ids != null && ids.size() > 0) {
             i = adminMapper.insertAdminRoleRelationsShip(id, ids);

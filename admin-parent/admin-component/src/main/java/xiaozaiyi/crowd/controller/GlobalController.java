@@ -18,22 +18,22 @@ public class GlobalController {
 
     /**
      * 映射资源不存在
+     *
      * @return
      */
     @RequestMapping("/")
     public ResultEntity index() {
-        throw  new CustomException(404,CrowdConstant.MESSAGE_ERROR_404);
-//        return ResultEntity.error(404, CrowdConstant.MESSAGE_ERROR_404);
+        throw new CustomException(404, CrowdConstant.MESSAGE_ERROR_404);
     }
 
     /**
      * 映射资源不存在
+     *
      * @return
      */
     @RequestMapping("/server/error")
     public ResultEntity serverError() {
-        throw new CustomException(500,CrowdConstant.SERVER_ERROR);
-//        return ResultEntity.error(500, CrowdConstant.SERVER_ERROR);
+        throw new CustomException(500, CrowdConstant.SERVER_ERROR);
     }
 
 
