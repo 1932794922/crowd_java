@@ -10,10 +10,11 @@
 
     <!--SpringMVC的配置文件。包含网站跳转逻辑控制配置-->
     <!--    1.配置扫描包-->
-    <context:component-scan base-package="xiaozaiyi.crowd" use-default-filters="true">
-        <!-- 只扫描控制器-->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-    </context:component-scan>
+<!--    <context:component-scan base-package="xiaozaiyi.crowd" use-default-filters="true">-->
+<!--        &lt;!&ndash; 只扫描控制器&ndash;&gt;-->
+<!--&lt;!&ndash;        <context:include-filter type="assignable" expression="xiaozaiyi.crowd.security.UserDetailsServiceImpl"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>&ndash;&gt;-->
+<!--    </context:component-scan>-->
 
     <!--    2.两个标准配置-->
     <!-- 将SpringMVC不能处理的请求交给Tomcat,动态静态资源都能访问成功-->
@@ -22,14 +23,14 @@
     <mvc:annotation-driven/>
 
     <!--使用SpringSecurity后当前自定义的登录拦截器不再使用了   -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!-- 配置要拦截的路径-->
-            <mvc:mapping path="/**"/>
-            <!--不拦截路径-->
-            <mvc:exclude-mapping path="/admin/login"/>
-            <bean id="interceptor" class="xiaozaiyi.crowd.interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash; 配置要拦截的路径&ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            &lt;!&ndash;不拦截路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/admin/login"/>-->
+<!--            <bean id="interceptor" class="xiaozaiyi.crowd.interceptor.LoginInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
 
 </beans>

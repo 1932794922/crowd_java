@@ -2,6 +2,8 @@ package xiaozaiyi.crowd.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author : Crazy_August
  * @description :
@@ -9,7 +11,8 @@ import lombok.Data;
  */
 
 @Data
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = -40356785423868312L;
 
     private Integer id;
 

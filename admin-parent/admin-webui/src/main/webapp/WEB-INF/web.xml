@@ -5,15 +5,15 @@
          version="4.0">
 
     <!-- 1.启动spring容器-->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:applicationContext.xml
-        </param-value>
-    </context-param>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+<!--    <context-param>-->
+<!--        <param-name>contextConfigLocation</param-name>-->
+<!--        <param-value>-->
+<!--            classpath:applicationContext.xml-->
+<!--        </param-value>-->
+<!--    </context-param>-->
+<!--    <listener>-->
+<!--        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+<!--    </listener>-->
 
     <!-- 2.SpringMVC的前端控制器,拦截所有请求-->
     <servlet>
@@ -22,6 +22,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
+                classpath:applicationContext.xml,
                 classpath:spring-mvc.xml
             </param-value>
         </init-param>
@@ -72,7 +73,7 @@
     <!--springSecurityFilterChain 名词不能修改-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filte.DelegatingFilterProxy</filter-class>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -87,5 +88,9 @@
     <error-page>
         <error-code>500</error-code>
         <location>/server/error</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/server/refuse</location>
     </error-page>
 </web-app>

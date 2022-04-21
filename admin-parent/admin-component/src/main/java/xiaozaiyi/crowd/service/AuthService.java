@@ -31,4 +31,11 @@ public interface AuthService {
      * @return
      */
     boolean saveAdminRole(Integer id, List<Integer> ids);
+
+    /**
+     * 通过id查询已经拥有用户的权限
+     * @param id
+     * @return
+     */
+    List<String> getAssignAuthNameByAdminId(Integer id);
 }

@@ -1,21 +1,19 @@
 package xiaozaiyi.crowd.util;
 
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import xiaozaiyi.crowd.constant.CustomConstant;
 
-import java.lang.reflect.ParameterizedType;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author : Crazy_August
  * @description :项目通用方法
  * @Time: 2022-03-31   15:35
  */
-public class CrowedUtils {
+public class CustomUtils {
 
     /**
      * md5加密
@@ -27,7 +25,7 @@ public class CrowedUtils {
         // 1. 判断字符是否有效
         if (source == null || source.length() == 0) {
             // 2. 如果不是有效字符串抛出异常
-            throw new RuntimeException(CrowdConstant.MESSAGE_STRING_INVALIDATE);
+            throw new RuntimeException(CustomConstant.MESSAGE_STRING_INVALIDATE);
         }
         try {
             // 3.获取MessageDigest
@@ -48,6 +46,24 @@ public class CrowedUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 将字符串渲染到客户端
+     *
+     * @param response 渲染对象
+     * @param string   待渲染的字符串
+     * @return null
+     */
+    public static void renderString(HttpServletResponse response, String string) {
+        try {
+            response.setStatus(200);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().print(string);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

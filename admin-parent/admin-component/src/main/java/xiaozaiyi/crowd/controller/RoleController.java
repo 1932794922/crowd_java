@@ -2,12 +2,13 @@ package xiaozaiyi.crowd.controller;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Role;
 import xiaozaiyi.crowd.service.RoleService;
 import xiaozaiyi.crowd.util.ResultEntity;
@@ -41,25 +42,28 @@ public class RoleController {
     }
 
     @RequestMapping("add")
+    @PreAuthorize("hasAuthority('role:add')")
     public ResultEntity addRole(@RequestBody Role role) {
         boolean success = roleService.addRole(role);
         if (!success) {
-            return ResultEntity.error(100, CrowdConstant.ADD_FAILED);
+            return ResultEntity.error(100, CustomConstant.ADD_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.ADD_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.ADD_SUCCESS);
     }
 
 
     @RequestMapping("update")
+    @PreAuthorize("hasAuthority('role:update')")
     public ResultEntity updateRole(@RequestBody Role role) {
         boolean success = roleService.updateRole(role);
         if (!success) {
-            return ResultEntity.error(100, CrowdConstant.UPDATE_FAILED);
+            return ResultEntity.error(100, CustomConstant.UPDATE_FAILED);
         }
-        return ResultEntity.error(200, CrowdConstant.UPDATE_SUCCESS);
+        return ResultEntity.error(200, CustomConstant.UPDATE_SUCCESS);
     }
 
     @RequestMapping("delete")
+    @PreAuthorize("hasAuthority('role:delete')")
     public ResultEntity dateRole(@RequestBody Map<String,  List<Integer>> map) {
         List<Integer> ids =  map.get("id");
         boolean success;
@@ -70,8 +74,8 @@ public class RoleController {
             success = roleService.deleteAdmin(ids.get(0));
         }
         if (!success) {
-            return ResultEntity.error(100, CrowdConstant.DELETE_FAILED);
+            return ResultEntity.error(100, CustomConstant.DELETE_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.DELETE_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.DELETE_SUCCESS);
     }
 }

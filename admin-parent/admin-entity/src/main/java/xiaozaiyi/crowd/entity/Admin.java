@@ -2,8 +2,11 @@ package xiaozaiyi.crowd.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Admin {
+public class Admin implements Serializable {
+    private static final long serialVersionUID = -40356785423868312L;
     private Integer id;
 
     private String loginAcct;

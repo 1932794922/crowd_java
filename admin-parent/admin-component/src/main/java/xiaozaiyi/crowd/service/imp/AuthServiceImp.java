@@ -2,10 +2,8 @@ package xiaozaiyi.crowd.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Auth;
-import xiaozaiyi.crowd.entity.Role;
 import xiaozaiyi.crowd.exception.CustomException;
 import xiaozaiyi.crowd.mapper.AuthMapper;
 import xiaozaiyi.crowd.service.AuthService;
@@ -28,7 +26,7 @@ public class AuthServiceImp implements AuthService {
     public AuthMapper authMapper;
 
     @Override
-    public  List<Auth> getAuthTree() {
+    public List<Auth> getAuthTree() {
         List<Auth> auths = authMapper.selectByExample(null);
         // 创建一个集合,用来存储 id 和 Menu 对象对应的关系便于查找父节点
         Map<Integer, Auth> AuthMap = new HashMap<>();
@@ -61,7 +59,7 @@ public class AuthServiceImp implements AuthService {
     public boolean saveAuth(Auth auth) {
         // 获取当前权限所在的位置
         if (auth == null) {
-            throw new CustomException(401, CrowdConstant.MENU_IS_NULL);
+            throw new CustomException(401, CustomConstant.MENU_IS_NULL);
         }
         Integer categoryId = auth.getCategoryId();
         // categoryId 不为空,说明是子节点
@@ -114,6 +112,12 @@ public class AuthServiceImp implements AuthService {
             i = authMapper.insertAuthRoleRelationsShip(id, ids);
         }
         return i > 0;
+    }
+
+    @Override
+    public List<String> getAssignAuthNameByAdminId(Integer id) {
+        List<String> authList = authMapper.selectAssignAuthNameByAdminId(id);
+        return authList;
     }
 
 }

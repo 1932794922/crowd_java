@@ -3,8 +3,6 @@ package xiaozaiyi.crowd.interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
-import xiaozaiyi.crowd.constant.CrowdConstant;
-import xiaozaiyi.crowd.exception.CustomException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +19,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String authorization = request.getHeader("Authorization");
-        if ("Bearer null".equals(authorization) || authorization == null) {
-            throw new CustomException(401, CrowdConstant.NO_AUTHORIZATION);
-        }
+//        if ("Bearer null".equals(authorization) || authorization == null) {
+//            throw new CustomException(401, CrowdConstant.NO_AUTHORIZATION);
+//        }
         return true;
     }
 

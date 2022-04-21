@@ -36,4 +36,6 @@ public interface AuthMapper {
     int deleteAuthRoleRelationsShip(Integer id);
 
     int insertAuthRoleRelationsShip(@Param("id") Integer id,@Param("ids") List<Integer> ids);
+
+    List<String> selectAssignAuthNameByAdminId(Integer id);
 }

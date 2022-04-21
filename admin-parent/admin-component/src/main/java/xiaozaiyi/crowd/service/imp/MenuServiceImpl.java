@@ -2,7 +2,7 @@ package xiaozaiyi.crowd.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Menu;
 import xiaozaiyi.crowd.exception.CustomException;
 import xiaozaiyi.crowd.mapper.MenuMapper;
@@ -107,7 +107,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public boolean saveMenu(Menu menu) {
         if (menu == null) {
-            throw new CustomException(401, CrowdConstant.MENU_IS_NULL);
+            throw new CustomException(401, CustomConstant.MENU_IS_NULL);
         }
         // 获取当前 被点击menu 的 id
         Integer id = menu.getId();

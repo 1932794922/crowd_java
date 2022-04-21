@@ -5,13 +5,14 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import xiaozaiyi.crowd.entity.Admin;
 import xiaozaiyi.crowd.entity.AdminExample;
 import xiaozaiyi.crowd.exception.CustomException;
 import xiaozaiyi.crowd.mapper.AdminMapper;
 import xiaozaiyi.crowd.service.AdminService;
-import xiaozaiyi.crowd.util.CrowedUtils;
+import xiaozaiyi.crowd.util.CustomUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,11 +31,15 @@ public class AdminServiceImp implements AdminService {
 
     private Logger logger = LoggerFactory.getLogger(AdminServiceImp.class);
 
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
+
     public void saveAdmin(Admin admin) {
         adminMapper.insert(admin);
     }
 
     public Admin getAdminByLoginAcct(String loginAcct, String userPswd) {
+
         // 1. 判断用户名是否合法
         if (loginAcct == null || loginAcct.trim().length() == 0) {
             return null;
@@ -54,9 +59,10 @@ public class AdminServiceImp implements AdminService {
             throw new CustomException(401, "存在多个相同账号系统异常");
         }
         Admin admin = admins.get(0);
+        
         // 4.将表单进行加密后比较
         String password = admin.getUserPswd().toUpperCase();
-        String newUserPswd = Objects.requireNonNull(CrowedUtils.md5(userPswd)).toUpperCase();
+        String newUserPswd = Objects.requireNonNull(CustomUtils.md5(userPswd)).toUpperCase();
         logger.info(password);
         logger.info(newUserPswd);
         if (!Objects.equals(password, newUserPswd)) {
@@ -81,7 +87,8 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public boolean updateAdmin(Admin admin) {
-        String nwePassword = Objects.requireNonNull(CrowedUtils.md5(admin.getUserPswd())).toUpperCase();
+//        String nwePassword = Objects.requireNonNull(CustomUtils.md5(admin.getUserPswd())).toUpperCase();
+        String nwePassword = bCryptPasswordEncoder.encode(admin.getUserPswd());
         admin.setUserPswd(nwePassword);
         int i = adminMapper.updateByPrimaryKeySelective(admin);
         return i > 0;
@@ -89,7 +96,9 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public boolean addAdmin(Admin admin) {
-        String nwePassword = Objects.requireNonNull(CrowedUtils.md5(admin.getUserPswd())).toUpperCase();
+        // MD5加密
+//        String nwePassword = Objects.requireNonNull(CustomUtils.md5(admin.getUserPswd())).toUpperCase();
+        String nwePassword = bCryptPasswordEncoder.encode(admin.getUserPswd());
         admin.setUserPswd(nwePassword);
         // 创建时间
 //        Date date = new Date(System.currentTimeMillis());

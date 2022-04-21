@@ -4,9 +4,12 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Admin;
 import xiaozaiyi.crowd.service.AdminService;
 import xiaozaiyi.crowd.util.ResultEntity;
@@ -20,23 +23,30 @@ import java.util.Map;
  * @description : 管理员 Controller
  * @Time: 2022-03-31   16:09
  */
-@Controller
-@ResponseBody
+
+@RestController
 @RequestMapping("admin")
-@CrossOrigin
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
 
+
     private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
+    /**
+     * 登录接口 ,已经弃用
+     * @param admin
+     * @return
+     */
     @RequestMapping("login")
     public ResultEntity adminLogin(@RequestBody Admin admin) {
+
         Admin AdminBd = adminService.getAdminByLoginAcct(admin.getLoginAcct(), admin.getUserPswd());
+
         // 把 查询到的Admin保存到session中
-        logger.info(AdminBd.toString());
-        return ResultEntity.success(CrowdConstant.LOGIN_SUCCESS).add("sessionId", "123456");
+
+        return ResultEntity.success(CustomConstant.LOGIN_SUCCESS).add("sessionId", "123456");
     }
 
     @RequestMapping("list")
@@ -53,6 +63,7 @@ public class AdminController {
     }
 
     @RequestMapping("delete")
+    @PreAuthorize("hasAuthority('user:delete')")
     public ResultEntity deleteAdmin(@RequestBody Map<String, List<Integer>> map) {
         List<Integer> ids = map.get("id"); // 获取前端传过来的ids
         boolean success;
@@ -63,27 +74,29 @@ public class AdminController {
             success = adminService.deleteAdmin(ids.get(0));
         }
         if (!success) {
-            return ResultEntity.error(100, CrowdConstant.DELETE_FAILED);
+            return ResultEntity.error(100, CustomConstant.DELETE_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.DELETE_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.DELETE_SUCCESS);
     }
 
     @RequestMapping("update")
+    @PreAuthorize("hasAuthority('user:update')")
     public ResultEntity updateAdmin(@RequestBody Admin admin) {
         boolean success = adminService.updateAdmin(admin);
         if (!success) {
-            return ResultEntity.success(100, CrowdConstant.UPDATE_FAILED);
+            return ResultEntity.success(100, CustomConstant.UPDATE_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.UPDATE_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.UPDATE_SUCCESS);
     }
 
     @RequestMapping("add")
+    @PreAuthorize("hasAuthority('user:add')")
     public ResultEntity addAdmin(@RequestBody Admin admin) {
         boolean success = adminService.addAdmin(admin);
         if (!success) {
-            return ResultEntity.success(100, CrowdConstant.ADD_FAILED);
+            return ResultEntity.success(100, CustomConstant.ADD_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.ADD_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.ADD_SUCCESS);
     }
 
 

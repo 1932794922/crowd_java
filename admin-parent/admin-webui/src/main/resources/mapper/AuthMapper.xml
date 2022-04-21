@@ -185,6 +185,33 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
+    <select id="selectAssignAuthNameByAdminId" resultType="java.lang.String">
+        SELECT DISTINCT  au.`name` `auth`
+        FROM t_admin a
+                 LEFT JOIN t_inner_admin_role iar
+                           ON a.id = iar.admin_id
+                 LEFT JOIN t_role r
+                           ON r.id = iar.role_id
+                 LEFT JOIN t_inner_role_auth iau
+                           ON r.id = iau.role_id
+                 LEFT JOIN t_auth au
+                           ON au.id = iau.auth_id
+        WHERE au.`name` != '' AND a.id = #{id}
+    </select>
+
+    <select id="selectAllByAdminId" resultType="java.lang.String">
+        SELECT DISTINCT a.id, a.login_acct, a.user_pswd, a.user_name, r.`name`, au.`name` `auth`
+        FROM t_admin a
+                 LEFT JOIN t_inner_admin_role iar
+                           ON a.id = iar.admin_id
+                 LEFT JOIN t_role r
+                           ON r.id = iar.role_id
+                 LEFT JOIN t_inner_role_auth iau
+                           ON r.id = iau.role_id
+                 LEFT JOIN t_auth au
+                           ON au.id = iau.auth_id
+        WHERE au.`name` != '' AND a.id = #{id}
+    </select>
     <update id="updateByExampleSelective" parameterType="map">
         update t_auth
         <set>

@@ -16,6 +16,7 @@ import xiaozaiyi.crowd.util.ResultEntity;
  * @Time: 2022-03-31   21:25
  */
 @ControllerAdvice
+
 public class RestExceptionController {
 
     /**
@@ -53,6 +54,19 @@ public class RestExceptionController {
         return ResultEntity.error(404, "请求地址不存在");
     }
 
+
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseBody
+    public ResultEntity RuntimeException(Exception e) {
+        e.printStackTrace();
+        return ResultEntity.error(500, e.getMessage());
+    }
+
+    /**
+     * 出错异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler({Exception.class})
     @ResponseBody
     public ResultEntity server500(Exception e) {

@@ -4,18 +4,28 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Admin;
+import xiaozaiyi.crowd.entity.AdminExample;
 import xiaozaiyi.crowd.entity.Role;
+import xiaozaiyi.crowd.exception.CustomException;
 import xiaozaiyi.crowd.mapper.AdminMapper;
 import xiaozaiyi.crowd.mapper.RoleMapper;
 import xiaozaiyi.crowd.service.AdminService;
+import xiaozaiyi.crowd.service.AuthService;
 import xiaozaiyi.crowd.util.ResultEntity;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author : Crazy_August
@@ -38,7 +48,10 @@ public class CrowdTest {
     @Autowired
     private RoleMapper roleMapper;
 
-    private Logger logger =  LoggerFactory.getLogger(CrowdTest.class);
+    @Autowired
+    public AuthService authService;
+
+    private Logger logger = LoggerFactory.getLogger(CrowdTest.class);
 
     @Test
     public void getPageInfoTest() {
@@ -54,7 +67,6 @@ public class CrowdTest {
             roleMapper.insert(new Role(null, "ROLE" + i));
         }
     }
-
 
 
     @Test
@@ -125,5 +137,63 @@ public class CrowdTest {
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
         System.out.println(connection);
+    }
+
+    @Autowired
+    public JedisPool JedisPool;
+
+    @Test
+    public void redisTest() {
+        Jedis resource = JedisPool.getResource();
+        System.out.println(resource);
+        resource.set("xiaoming", "sahd kljasdl");
+        resource.close();
+    }
+
+    @Autowired
+    public RedisTemplate<String, String> template;
+
+
+    @Test
+    public void RedisTemplateTest() {
+        ValueOperations<String, String> stringStringValueOperations = template.opsForValue();
+        stringStringValueOperations.set("xiao", "肖在毅");
+        String xiao = stringStringValueOperations.get("xiao");
+        System.out.println(xiao);
+    }
+
+
+    @Test
+    public void loadUserByUsernameTest() {
+        String username = "eqafm1111";
+        //根据用户名查询用户信息
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andLoginAcctEqualTo(username);
+        List<Admin> admins = adminMapper.selectByExample(adminExample);
+
+        if (admins.size() == 0 || admins.size() > 1) {
+            //如果查询不到数据就通过抛出异常来给出提示,或者 存在多个用户
+            throw new CustomException(401, CustomConstant.USERNAME_NOT_EXIST);
+        }
+
+        //TODO 根据用户查询权限信息 添加到LoginUser中 getAuthorities
+        //封装成UserDetails对象返回
+        Admin admin = admins.get(0);
+        Integer id = admin.getId();
+        // 2. 根据 admin 查询角色信息
+        List<Role> adminRoles = roleMapper.selectAssignRoleByAdminId(id);
+        adminRoles.forEach(System.out::println);
+        // 3. 根据 admin id 查询权限信息
+        List<String> authList = authService.getAssignAuthNameByAdminId(id);
+        authList.forEach(System.out::println);
+    }
+
+
+    @Test
+    public void BCryptPasswordEncoderTest() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password = bCryptPasswordEncoder.encode("E10ADC3949BA59ABBE56E057F20F883E");
+        System.out.println(password);
     }
 }

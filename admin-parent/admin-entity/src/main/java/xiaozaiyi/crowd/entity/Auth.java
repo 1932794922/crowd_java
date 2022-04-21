@@ -2,6 +2,7 @@ package xiaozaiyi.crowd.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  * 权限操作类
  */
 @Data
-public class Auth {
+public class Auth implements Serializable {
+    private static final long serialVersionUID = -40356785423868312L;
     private Integer id;
 
     private String name;

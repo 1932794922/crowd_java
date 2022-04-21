@@ -2,11 +2,13 @@ package xiaozaiyi.crowd.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Menu {
+public class Menu implements Serializable {
+    private static final long serialVersionUID = -40356785423868312L;
     private Integer id;
 
     private Integer pid;

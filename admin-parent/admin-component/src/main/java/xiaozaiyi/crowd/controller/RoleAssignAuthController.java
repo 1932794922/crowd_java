@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xiaozaiyi.crowd.constant.CrowdConstant;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.entity.Auth;
-import xiaozaiyi.crowd.entity.Role;
 import xiaozaiyi.crowd.service.AdminService;
 import xiaozaiyi.crowd.service.AuthService;
 import xiaozaiyi.crowd.service.RoleService;
@@ -44,9 +43,9 @@ public class RoleAssignAuthController {
         List<Integer> ids = (List<Integer>) map.get("ids");
         boolean success =  authService.saveAdminRole(id, ids);
         if (!success) {
-            return ResultEntity.success(100, CrowdConstant.UPDATE_FAILED);
+            return ResultEntity.success(100, CustomConstant.UPDATE_FAILED);
         }
-        return ResultEntity.success(200, CrowdConstant.UPDATE_SUCCESS);
+        return ResultEntity.success(200, CustomConstant.UPDATE_SUCCESS);
     }
 
 
