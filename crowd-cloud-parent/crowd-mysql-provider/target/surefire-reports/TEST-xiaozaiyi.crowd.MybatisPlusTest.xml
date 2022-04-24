@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="xiaozaiyi.crowd.MybatisPlusTest" time="0.622" errors="0" skipped="0">
+  <properties>
+    <property name="idea.version" value="2021.2.4"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Environment\Java\jdk1.8.0_311\jre\bin"/>
+    <property name="java.vm.version" value="25.311-b11"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="E:\_Java_project\SSMProject\crowd\crowd-cloud-parent"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="E:\_Java_project\SSMProject\crowd\crowd-cloud-parent"/>
+    <property name="java.runtime.version" value="1.8.0_311-b11"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Environment\Java\jdk1.8.0_311\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\19327\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="maven.ext.class.path" value="D:\Program Files (x86)\IntelliJ IDEA 2021.2.1\plugins\maven\lib\maven-event-listener.jar"/>
+    <property name="classworlds.conf" value="D:\Environment\apache-maven-3.8.4\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.library.path" value="C:\Environment\Java\jdk1.8.0_311\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\Program Files (x86)\Git\Git\Git\cmd;D:\Program Files (x86)\Python\Python38\Scripts\;D:\Program Files (x86)\Python\Python38\;D:\Program Files (x86)\Python\Python38\Graphviz\bin;;C:\WINDOWS\system32\WBEM;D:\Program Files (x86)\Anaconda3;D:\Program Files (x86)\Anaconda3\Library\mingw-w64\bin;D:\Program Files (x86)\Anaconda3\Library\usr\bin;D:\Program Files (x86)\Anaconda3\Library\bin;D:\Program Files (x86)\Anaconda3\Scripts;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Environment\Java\jdk-11.0.13\bin;C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility;C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;D:\Program Files (x86)\minGW;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files (x86)\nodejs\;D:\Environment\mysql-8.0.26\bin;C:\Users\19327\AppData\Local\Microsoft\WindowsApps;C:\Users\19327\.dotnet\tools;D:\Program Files (x86)\Microsoft VS Code\bin;D:\Program Files (x86)\WebStorm 2020.1\bin;C:\Users\19327\AppData\Local\Microsoft\WindowsApps;C:\Users\19327\AppData\Roaming\npm;D:\Program Files (x86)\IntelliJ IDEA 2021.2.1\bin;D:\Program Files (x86)\NetSarang\Xftp 7\;D:\MATLSB2019\runtime\win64;D:\MATLSB2019\bin;D:\MATLSB2019\polyspace\bin;;D:\Environment\apache-tomcat-9.0.58\bin;D:\Program Files (x86)\Xshell 7\;D:\Program Files (x86)\AiThinkerIDE_V1.5.2\msys32\usr\bin;D:\Program Files (x86)\AiThinkerIDE_V1.5.2\msys32\opt\esp32\xtensa-esp32-elf-5.0\bin;D:\Program Files (x86)\AiThinkerIDE_V1.5.2\msys32\mingw32\bin;D:\Program Files (x86)\AiThinkerIDE_V1.5.2\msys32\opt\esp8266\v5.2.0_for_3.0\bin;;D:\Environment\apache-maven-3.8.4\bin;D:\Environment\apache-tomcat-9.0.58\bin;D:\Program Files (x86)\opencv\opencv3\opencv\build\x64\vc15\bin\;D:\Program Files (x86)\TortoiseSVN\bin;C:\Users\19327;D:\Program Files (x86)\Python\Python38\Scripts\;D:\Program Files (x86)\Python\Python38\;C:\Users\19327\AppData\Local\Microsoft\WindowsApps;C:\Users\19327\.dotnet\tools;D:\Program Files (x86)\Microsoft VS Code\bin;D:\Program Files (x86)\minGW\bin;D:\Program Files (x86)\PyCharm 2021.3\bin;;D:\Program Files (x86)\WebStorm 2021.3\bin;;C:\Users\19327\AppData\Local\Microsoft\WindowsApps;C:\Users\19327\AppData\Roaming\npm;D:\Program Files (x86)\IntelliJ IDEA 2021.2.1\bin;;D:\Environment\php\phpStudy_64\phpstudy_pro\Extensions\php\php7.3.4nts;D:\Program Files (x86)\Git\Composer;C:\Users\19327\AppData\Roaming\Composer\vendor\bin;."/>
+    <property name="maven.conf" value="D:\Environment\apache-maven-3.8.4/conf"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="maven.repo.local" value="D:\Environment\apache-maven-3.8.4\localRepository"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\19327"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="xzy"/>
+    <property name="java.class.path" value="D:\Environment\apache-maven-3.8.4\boot\plexus-classworlds-2.6.0.jar;D:\Environment\apache-maven-3.8.4\boot\plexus-classworlds.license;D:\Program Files (x86)\IntelliJ IDEA 2021.2.1\lib\idea_rt.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Environment\Java\jdk1.8.0_311\jre"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2021.2.4 -s D:\Environment\apache-maven-3.8.4\conf\settings.xml -Dmaven.repo.local=D:\Environment\apache-maven-3.8.4\localRepository install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="zh"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_311"/>
+    <property name="java.ext.dirs" value="C:\Environment\Java\jdk1.8.0_311\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Environment\Java\jdk1.8.0_311\jre\lib\resources.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\rt.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\sunrsasign.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\jsse.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\jce.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\charsets.jar;C:\Environment\Java\jdk1.8.0_311\jre\lib\jfr.jar;C:\Environment\Java\jdk1.8.0_311\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="D:\Environment\apache-maven-3.8.4"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="xiaozaiyi.crowd.MybatisPlusTest" name="mybatisTest1" time="0.622"/>
+</testsuite>

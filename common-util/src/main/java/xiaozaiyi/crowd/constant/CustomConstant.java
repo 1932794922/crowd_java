@@ -48,4 +48,8 @@ public class CustomConstant {
     public static final String ERROR_TOKEN = "非法token";
 
     public static final String  AUTHENTICATION_ERROR = "认证身份失败,请重新登录";
+
+    public static final String EMAIL_IS_NULL = "QQ邮箱为空";
+
+    public static final String EMAIL_SEND_ERROR = "邮件发送失败";
 }

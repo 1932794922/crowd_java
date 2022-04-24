@@ -30,7 +30,6 @@ public class LoginController {
         Map<String, Object> login = loginService.login(admin);
         String token = (String) login.get("token");
         String userName = (String) login.get("userName");
-
         return ResultEntity.success("登录成功").add("token", token)
                 .add("userName",userName);
     }

@@ -36,6 +36,7 @@ public class AdminController {
 
     /**
      * 登录接口 ,已经弃用
+     *
      * @param admin
      * @return
      */
@@ -98,7 +99,6 @@ public class AdminController {
         }
         return ResultEntity.success(200, CustomConstant.ADD_SUCCESS);
     }
-
 
 
 }

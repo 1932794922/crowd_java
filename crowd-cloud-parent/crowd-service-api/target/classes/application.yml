@@ -1,0 +1,18 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: august-api
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+
+
+logging:
+  level:
+    # feign日志以什么级别监控哪个接口
+    xiaozaiyi.crowd*: debug

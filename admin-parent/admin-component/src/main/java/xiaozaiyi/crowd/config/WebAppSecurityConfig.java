@@ -85,7 +85,6 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
         //把token校验过滤器添加到过滤器链中
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-
         // 请求失败处理
         http.exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
