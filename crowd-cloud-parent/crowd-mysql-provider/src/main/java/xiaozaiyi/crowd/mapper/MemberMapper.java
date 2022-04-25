@@ -7,10 +7,7 @@ import xiaozaiyi.crowd.po.MemberPO;
 /**
  * 会员接口
  */
-
 @Mapper
-
 public interface MemberMapper extends BaseMapper<MemberPO> {
-
 
 }

@@ -29,28 +29,28 @@ public class R<T> implements Serializable {
 
     private T data;
 
-    private String msg;
+    private String message;
 
     private R(IResultCode resultCode) {
         this(resultCode, null, resultCode.getMessage());
     }
 
-    private R(IResultCode resultCode, String msg) {
-        this(resultCode, null, msg);
+    private R(IResultCode resultCode, String message) {
+        this(resultCode, null, message);
     }
 
     private R(IResultCode resultCode, T data) {
         this(resultCode, data, resultCode.getMessage());
     }
 
-    private R(IResultCode resultCode, T data, String msg) {
-        this(resultCode.getCode(), data, msg);
+    private R(IResultCode resultCode, T data, String message) {
+        this(resultCode.getCode(), data, message);
     }
 
-    private R(int code, T data, String msg) {
+    private R(int code, T data, String message) {
         this.code = code;
         this.data = data;
-        this.msg = msg;
+        this.message = message;
         this.success = ResultCode.SUCCESS.code == code;
     }
 
@@ -91,12 +91,12 @@ public class R<T> implements Serializable {
      * 返回R
      *
      * @param data 数据
-     * @param msg  消息
+     * @param message  消息
      * @param <T>  T 泛型标记
      * @return R
      */
-    public static <T> R<T> data(T data, String msg) {
-        return data(HttpServletResponse.SC_OK, data, msg);
+    public static <T> R<T> data(T data, String message) {
+        return data(HttpServletResponse.SC_OK, data, message);
     }
 
     /**
@@ -104,23 +104,23 @@ public class R<T> implements Serializable {
      *
      * @param code 状态码
      * @param data 数据
-     * @param msg  消息
+     * @param message  消息
      * @param <T>  T 泛型标记
      * @return R
      */
-    public static <T> R<T> data(int code, T data, String msg) {
-        return new R<>(code, data, data == null ? DEFAULT_NULL_MESSAGE : msg);
+    public static <T> R<T> data(int code, T data, String message) {
+        return new R<>(code, data, data == null ? DEFAULT_NULL_MESSAGE : message);
     }
 
     /**
      * 返回R
      *
-     * @param msg 消息
+     * @param message 消息
      * @param <T> T 泛型标记
      * @return R
      */
-    public static <T> R<T> success(String msg) {
-        return new R<>(ResultCode.SUCCESS, msg);
+    public static <T> R<T> success(String message) {
+        return new R<>(ResultCode.SUCCESS, message);
     }
 
     /**
@@ -138,23 +138,23 @@ public class R<T> implements Serializable {
      * 返回R
      *
      * @param resultCode 业务代码
-     * @param msg        消息
+     * @param message        消息
      * @param <T>        T 泛型标记
      * @return R
      */
-    public static <T> R<T> success(IResultCode resultCode, String msg) {
-        return new R<>(resultCode, msg);
+    public static <T> R<T> success(IResultCode resultCode, String message) {
+        return new R<>(resultCode, message);
     }
 
     /**
      * 返回R
      *
-     * @param msg 消息
+     * @param message 消息
      * @param <T> T 泛型标记
      * @return R
      */
-    public static <T> R<T> fail(String msg) {
-        return new R<>(ResultCode.FAILURE, msg);
+    public static <T> R<T> fail(String message) {
+        return new R<>(ResultCode.FAILURE, message);
     }
 
 
@@ -162,12 +162,12 @@ public class R<T> implements Serializable {
      * 返回R
      *
      * @param code 状态码
-     * @param msg  消息
+     * @param message  消息
      * @param <T>  T 泛型标记
      * @return R
      */
-    public static <T> R<T> fail(int code, String msg) {
-        return new R<>(code, null, msg);
+    public static <T> R<T> fail(int code, String message) {
+        return new R<>(code, null, message);
     }
 
     /**
@@ -185,12 +185,12 @@ public class R<T> implements Serializable {
      * 返回R
      *
      * @param resultCode 业务代码
-     * @param msg        消息
+     * @param message        消息
      * @param <T>        T 泛型标记
      * @return R
      */
-    public static <T> R<T> fail(IResultCode resultCode, String msg) {
-        return new R<>(resultCode, msg);
+    public static <T> R<T> fail(IResultCode resultCode, String message) {
+        return new R<>(resultCode, message);
     }
 
     /**
@@ -203,4 +203,17 @@ public class R<T> implements Serializable {
         return flag ? success(DEFAULT_SUCCESS_MESSAGE) : fail(DEFAULT_FAILURE_MESSAGE);
     }
 
+    public static <T> R<T> status(boolean flag,String message) {
+        return flag ? success(message) : fail(message);
+    }
+
+    @Override
+    public String toString() {
+        return "R{" +
+                "code=" + code +
+                ", success=" + success +
+                ", data=" + data +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

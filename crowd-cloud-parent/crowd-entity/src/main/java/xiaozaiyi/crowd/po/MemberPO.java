@@ -30,7 +30,7 @@ public class MemberPO {
 
     private String email;
 
-    // '实名认证状态0 - 未实名认证， 1 - 实名认证申\r\n请中， 2 - 已实名认证',
+    // '实名认证状态0 - 未实名认证， 1 - 实名认证申请中， 2 - 已实名认证',
     private Integer authStatus;
 
     // ' 0 - 个人， 1 - 企业',

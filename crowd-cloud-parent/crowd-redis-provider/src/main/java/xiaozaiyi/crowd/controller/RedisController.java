@@ -68,6 +68,9 @@ public class RedisController {
         try {
             ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
             String value = operations.get(key);
+            if (value == null) {
+                return R.status(false);
+            }
             return R.data(value);
         } catch (Exception e) {
             return R.fail(e.getMessage());
@@ -79,7 +82,7 @@ public class RedisController {
     R<String> removeRedisValueByKey(@RequestParam("key") String key) {
         try {
             Boolean delete = stringRedisTemplate.delete(key);
-            return R.status(delete);
+            return R.status(Boolean.TRUE.equals(delete));
         } catch (Exception e) {
             return R.fail(e.getMessage());
         }

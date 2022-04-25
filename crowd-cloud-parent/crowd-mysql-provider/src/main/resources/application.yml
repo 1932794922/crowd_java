@@ -27,3 +27,5 @@ logging:
     xiaozaiyi.crowd.mapper: debug
     xiaozaiyi.crowd.test: debug
 
+
+

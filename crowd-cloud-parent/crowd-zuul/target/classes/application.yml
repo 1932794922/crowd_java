@@ -3,12 +3,13 @@ server:
 spring:
   application:
     name: august-gateway
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka
-
 
 zuul:
   ignored-services: "*"
@@ -17,6 +18,21 @@ zuul:
     portal:
       service-id: august-authentication
       path: /**
+  host:
+    connect-timeout-millis: 120000
+    socket-timeout-millis: 100000
+
+ribbon:
+  #  #简历连接所用的时间，适用于网络状况正常的情况下，两端连接所需要的时间
+  ConnectTimeOut: 120000
+  #  #指建立连接后从服务端读取到可用资源所用的时间
+  ReadTimeOut: 100000
 
 
-
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

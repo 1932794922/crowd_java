@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 @FeignClient("august-redis")
 //浏览器请求到达这里
-public interface IRedisClient {
+public interface IRedisClientFeign {
 
     /**
      * 设置 键值

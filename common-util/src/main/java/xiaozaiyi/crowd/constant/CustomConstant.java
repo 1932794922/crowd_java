@@ -11,6 +11,10 @@ public class CustomConstant {
 
     public static final String USERNAME_NOT_EXIST = "用户名不存在";
 
+    public static final String ACCT_NOT_EXIST = "登录账号不存在";
+
+    public static final String ACCT_EXIST = "登录账号已存在";
+
     public static final String LOGIN_FAILED = "登录失败";
 
     public static final String LOGIN_SUCCESS = "登录成功";
@@ -47,9 +51,20 @@ public class CustomConstant {
 
     public static final String ERROR_TOKEN = "非法token";
 
-    public static final String  AUTHENTICATION_ERROR = "认证身份失败,请重新登录";
+    public static final String AUTHENTICATION_ERROR = "认证身份失败,请重新登录";
 
     public static final String EMAIL_IS_NULL = "QQ邮箱为空";
 
     public static final String EMAIL_SEND_ERROR = "邮件发送失败";
+
+    public static final String CODE_ERROR = "验证码错误";
+
+    public static final String CODE_SEND_ERROR = "验证码发送错误,请重试";
+
+    public static final String PHONE_OR_CODE_EXIST = "手机号错误或者验证码失效,请重新检查后再重试";
+
+    public static final String CODE_SEND_SUCCESS = "验证码发送成功";
+    public static final String REGISTER_SUCCESS = "注册成功";
+
+    public static final String PASSWORD_ERROR = "密码不正确";
 }

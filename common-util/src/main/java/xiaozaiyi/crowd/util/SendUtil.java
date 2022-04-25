@@ -6,7 +6,6 @@ import com.aliyun.sdk.service.dysmsapi20170525.AsyncClient;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsResponse;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsResponseBody;
-import com.google.gson.Gson;
 import com.sun.mail.util.MailSSLSocketFactory;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
@@ -37,10 +38,9 @@ public class SendUtil {
      * 发送验证码
      *
      * @param phoneNumbers 手机号
-     * @param code         验证码
      * @return 响应字符串
      */
-    public static String sendSmS(String phoneNumbers, String code) {
+    public static Map<String, String> sendSmS(String phoneNumbers) {
 
         // 指定 HttpClient，并配置 Http 请求参数
 //        HttpClient httpClient = new ApacheAsyncHttpClientBuilder()
@@ -93,6 +93,14 @@ public class SendUtil {
                             //.setReadTimeout(Duration.ofSeconds(30))
                     )
                     .build();
+
+            StringBuilder code = new StringBuilder();
+
+            for (int i = 0; i < 6; i++) {
+                int temp = (int) (Math.random() * 10);
+                code.append(temp);
+            }
+
             String phoneCode = "{'code':" + code + "}";
             // Parameter settings for API request
             SendSmsRequest sendSmsRequest = SendSmsRequest.builder()
@@ -112,8 +120,8 @@ public class SendUtil {
             try {
                 resp = response.get();
                 SendSmsResponseBody body = resp.getBody();
-                String jsonBody = new Gson().toJson(body);
-
+//                String jsonBody = new Gson().toJson(body);
+//                log.info(jsonBody);
                 // 异步处理返回值方式
 //        response.thenAccept(resp -> {
 //            System.out.println(new Gson().toJson(resp.headers()));
@@ -122,7 +130,10 @@ public class SendUtil {
 //            System.out.println(throwable.getMessage());
 //            return null;
 //        });
-                return jsonBody;
+                HashMap<String, String> map = new HashMap<>();
+                map.put("message", body.getMessage());
+                map.put("code", code.toString());
+                return map;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -219,7 +230,6 @@ public class SendUtil {
                 throw new CustomException(100, CustomConstant.EMAIL_SEND_ERROR);
             }
         });
-
         thread.start();
     }
 }

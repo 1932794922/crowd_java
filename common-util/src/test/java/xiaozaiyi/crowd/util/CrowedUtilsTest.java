@@ -14,8 +14,8 @@ public class CrowedUtilsTest {
 
     @Test
     public void sendSmSTest() {
-        String s = SendUtil.sendSmS("19178851803", "12345");
-        System.out.println(s);
+        SendUtil.sendSmS("19178851803");
+
     }
 
     @Test
