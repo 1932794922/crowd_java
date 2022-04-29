@@ -33,4 +33,20 @@ public interface MemberService {
      * @return
      */
     R<MemberVO> memberLogin(MemberVO memberVO);
+
+    /**
+     * 返回个人信息
+     *
+     * @param token
+     * @return
+     */
+    R<MemberVO> getMemberUser(String token);
+
+    /**
+     * 退出登录
+     *
+     * @param token
+     * @return
+     */
+    R<MemberVO> memberLogout(String token);
 }

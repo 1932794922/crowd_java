@@ -1,5 +1,6 @@
 server:
-  port: 80
+  port: 801
+
 spring:
   application:
     name: august-gateway
@@ -12,7 +13,7 @@ eureka:
       defaultZone: http://localhost:1000/eureka
 
 zuul:
-  ignored-services: "*"
+  ignored-services: "*" #不能在使用这个路径访问
   sensitive-headers: "*"
   routes:
     portal:
@@ -22,12 +23,6 @@ zuul:
     connect-timeout-millis: 120000
     socket-timeout-millis: 100000
 
-ribbon:
-  #  #简历连接所用的时间，适用于网络状况正常的情况下，两端连接所需要的时间
-  ConnectTimeOut: 120000
-  #  #指建立连接后从服务端读取到可用资源所用的时间
-  ReadTimeOut: 100000
-
 
 hystrix:
   command:
@@ -36,3 +31,11 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+
+
+
+exclude:
+  auth:
+    #不需要授权验证的请求地址,可设置多个,使用逗号分隔开,会跳过AuthFilter授权验证
+    url: /member/register,/member/get/phone/code,/member/login,/error
+

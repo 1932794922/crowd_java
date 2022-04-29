@@ -36,7 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
-            //获取 前端发老的token
+            //获取 前端发送的token
             String token = request.getHeader("authorization");
             if (!StringUtils.hasText(token)) {
                 // 为空放行,有可能是第一次访问
@@ -61,11 +61,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 throw new CustomException(100, CustomConstant.ERROR_TOKEN);
             }
-
             // 从redis中获取用户信息
-            String redisId = "user::" + userId;
+            String redisId = CustomConstant.REDIS_PREFIX + userId;
             LoginUser loginUser = redisCache.getCacheObject(redisId);
-
             if (Objects.isNull(loginUser)) {
                 throw new CustomException(100, CustomConstant.NO_LOGIN_USER);
             }

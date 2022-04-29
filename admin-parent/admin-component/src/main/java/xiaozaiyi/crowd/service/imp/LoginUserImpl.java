@@ -61,8 +61,9 @@ public class LoginUserImpl implements LoginService {
         Map<String, Object> map = new HashMap<>();
         map.put("token", jwt);
         map.put("userName", loginUser.getAdmin().getUserName());
+
         // 把完整的信息存入 redis ,格式  User::id :  loginUser
-        RedisCache.setCacheObject("user::" + id, loginUser);
+        RedisCache.setCacheObject(CustomConstant.REDIS_PREFIX + id, loginUser);
 
         return map;
     }
@@ -78,7 +79,7 @@ public class LoginUserImpl implements LoginService {
         }
         Integer id = loginUser.getAdmin().getId();
         // 2. 删除 redis 的用户信息
-        String redisId = "user::" + id;
+        String redisId = CustomConstant.REDIS_PREFIX + id;
         RedisCache.deleteObject(redisId);
         // 3. 删除 SecurityContextHolder 授权的信息
         authentication.setAuthenticated(false);

@@ -22,6 +22,7 @@ public class RedisController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+
     /**
      * 设置 键值
      * @param key

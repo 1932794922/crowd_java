@@ -7,8 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 会员实体类
+ *
  * @author : Crazy_August
  * @description
  * @Time: 2022-04-23   17:07
@@ -17,9 +20,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("t_member")
-public class MemberPO {
+public class MemberPO implements Serializable {
 
-    @TableId(type= IdType.AUTO)
+    private static final long serialVersionUID = 1L;
+
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String loginAcct;

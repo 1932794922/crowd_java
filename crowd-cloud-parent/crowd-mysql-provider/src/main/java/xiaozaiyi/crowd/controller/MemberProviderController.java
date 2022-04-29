@@ -58,10 +58,12 @@ public class MemberProviderController {
 
     @PostMapping("/client/member/login")
     R<MemberPO> memberLoginByAcctPassword(@RequestBody MemberPO memberPO){
-
         R<MemberPO> memberPOR = memberService.memberLoginByAcctPassword(memberPO);
         boolean success = memberPOR.isSuccess();
-        return R.status(success,memberPOR.getMessage());
+        if (!success) {
+            return R.fail(memberPOR.getMessage());
+        }
+        return memberPOR;
     }
 
 

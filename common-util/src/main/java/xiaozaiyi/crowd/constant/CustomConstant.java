@@ -47,7 +47,7 @@ public class CustomConstant {
 
     public static final String SERVER_REFUSE = "访问被禁止";
 
-    public static final String NO_LOGIN_USER = "用户未登录";
+    public static final String NO_LOGIN_USER = "未登录,请重新登录";
 
     public static final String ERROR_TOKEN = "非法token";
 
@@ -64,7 +64,16 @@ public class CustomConstant {
     public static final String PHONE_OR_CODE_EXIST = "手机号错误或者验证码失效,请重新检查后再重试";
 
     public static final String CODE_SEND_SUCCESS = "验证码发送成功";
+
     public static final String REGISTER_SUCCESS = "注册成功";
 
     public static final String PASSWORD_ERROR = "密码不正确";
+
+    public static final String NULL_TOKEN = "token为空";
+
+    public static final String REDIS_PREFIX = "user::";
+
+    public static final long EXPIRED_TIME = 30;
+
+    public static final String IDENTITY_IS_OVERDUE = "身份过期,请重新登录";
 }

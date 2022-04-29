@@ -5,6 +5,7 @@ spring:
   application:
     name: august-api
 
+
 eureka:
   client:
     service-url:

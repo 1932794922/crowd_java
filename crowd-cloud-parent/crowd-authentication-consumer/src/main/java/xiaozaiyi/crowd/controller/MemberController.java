@@ -2,10 +2,15 @@ package xiaozaiyi.crowd.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.service.MemberService;
 import xiaozaiyi.crowd.util.api.R;
 import xiaozaiyi.crowd.vo.MemberVO;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * 会员主页控制器
@@ -54,11 +59,47 @@ public class MemberController {
 
 
     @PostMapping("/login")
-    public R<MemberVO> memberLogin(@RequestBody MemberVO memberVO) {
+    public R<HashMap<String, String>> memberLogin(@RequestBody MemberVO memberVO) {
 
         R<MemberVO> memberVOR = memberService.memberLogin(memberVO);
         boolean success = memberVOR.isSuccess();
-        return R.status(success, memberVOR.getMessage());
+        if (!success) {
+            return R.fail(memberVOR.getMessage());
+        }
+        HashMap<String, String> map = new HashMap<>();
+        // 返回 token
+        map.put("token", memberVOR.getData().getToken());
+        return R.data(map);
     }
+
+    @GetMapping("/logout")
+    public R<MemberVO> memberLogout(HttpServletRequest request) {
+        String authorizationToken = request.getHeader("authorization");
+        String[] split = authorizationToken.split(" ");
+        String token  = split[1];
+        R<MemberVO> memberVOR  =  memberService.memberLogout(token);
+        return R.status(memberVOR.isSuccess(), memberVOR.getMessage());
+    }
+
+
+    @GetMapping("/get/user")
+    public R<HashMap<String, String>> getMemberUser(HttpServletRequest request) {
+        String authorizationToken = request.getHeader("authorization");
+        if (StringUtils.isEmpty(authorizationToken)) {
+            return R.fail(CustomConstant.NULL_TOKEN);
+        }
+        String[] split = authorizationToken.split(" ");
+        String token  = split[1];
+        R<MemberVO> memberVOR  =  memberService.getMemberUser(token);
+        boolean success = memberVOR.isSuccess();
+        if (!success){
+            R.fail(memberVOR.getMessage());
+        }
+        HashMap<String, String> map = new HashMap<>();
+        // 返回 token
+        map.put("userName", memberVOR.getData().getUserName());
+        return R.data(map);
+    }
+
 
 }

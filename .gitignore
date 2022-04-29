@@ -41,7 +41,7 @@ crowd_vue/*
 rebel.xml
 /rebel.xml
 resources/rebel.xml
-/common-util/target/
+/common-xiaozaiyi.crowd.util/target/
 /admin-parent/admin-component/target/
 /admin-parent/admin-component/target/*
 /admin-parent/admin-webui/target/

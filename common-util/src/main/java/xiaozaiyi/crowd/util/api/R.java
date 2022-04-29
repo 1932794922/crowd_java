@@ -54,6 +54,7 @@ public class R<T> implements Serializable {
         this.success = ResultCode.SUCCESS.code == code;
     }
 
+
     /**
      * 判断返回是否为成功
      *
@@ -206,6 +207,7 @@ public class R<T> implements Serializable {
     public static <T> R<T> status(boolean flag,String message) {
         return flag ? success(message) : fail(message);
     }
+
 
     @Override
     public String toString() {

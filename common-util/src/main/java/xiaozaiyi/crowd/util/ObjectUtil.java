@@ -1,8 +1,10 @@
 package xiaozaiyi.crowd.util;
 
-import com.sun.istack.internal.Nullable;
 
-public class ObjectUtil extends org.springframework.util.ObjectUtils {
+import org.jetbrains.annotations.Nullable;
+import org.springframework.util.ObjectUtils;
+
+public class ObjectUtil extends ObjectUtils {
 
 	/**
 	 * 判断元素不为空

@@ -19,6 +19,7 @@
         <module>crowd-pay-consumer</module>
         <module>crowd-zuul</module>
         <module>crowd-service-api</module>
+        <module>crowd-gateway</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
