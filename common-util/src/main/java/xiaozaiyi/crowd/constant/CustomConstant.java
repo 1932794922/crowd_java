@@ -73,9 +73,18 @@ public class CustomConstant {
 
     public static final String REDIS_PREFIX = "user::";
 
+    public static final String TEMP_PROJECT_PREFIX = "project::";
+    public static final String TEMP_RETURN_PREFIX = "return::";
+
     public static final long EXPIRED_TIME = 30;
 
     public static final String IDENTITY_IS_OVERDUE = "身份过期,请重新登录";
 
     public static final String UPLOAD_FAILED = "上传失败";
+
+    public static final String SAVE_SUCCESS = "保存成功";
+
+    public static final String ONLY_ONE_IMAGES = "只能上传一张图片";
+
+    public static final String DATA_IS_NULL = "表单数据不能都为空";
 }

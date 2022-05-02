@@ -27,7 +27,7 @@ public class ReturnVO  implements Serializable {
 	// 总回报数量，0为不限制
 	private Integer count;
 	
-	// 是否限制单笔购买数量，0表示不限购，1表示限购
+	// 是否限制单笔购买数量，0 表示不限购，1表示限购
 	private Integer signalPurchase;
 	
 	// 如果单笔限购，那么具体的限购数量

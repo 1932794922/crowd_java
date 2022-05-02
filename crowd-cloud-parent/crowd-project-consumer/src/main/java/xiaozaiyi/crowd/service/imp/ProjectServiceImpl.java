@@ -1,14 +1,22 @@
 package xiaozaiyi.crowd.service.imp;
 
+
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import xiaozaiyi.crowd.constant.CustomConstant;
+import xiaozaiyi.crowd.feign.IRedisClientFeign;
 import xiaozaiyi.crowd.service.ProjectService;
+import xiaozaiyi.crowd.util.CustomUtils;
 import xiaozaiyi.crowd.util.QOssUploadUtil;
 import xiaozaiyi.crowd.util.api.R;
 import xiaozaiyi.crowd.vo.ProjectVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author : Crazy_August
@@ -18,6 +26,10 @@ import java.util.List;
 @Service
 @Slf4j
 public class ProjectServiceImpl implements ProjectService {
+
+
+    @Autowired
+    private IRedisClientFeign iRedisClientFeign;
 
     @Override
     public R<ProjectVO> fileUpload(List<MultipartFile> file) {
@@ -43,5 +55,29 @@ public class ProjectServiceImpl implements ProjectService {
 
         }
         return R.data(projectVO);
+    }
+
+    @Override
+    public R<ProjectVO> saveProject(ProjectVO projectVO, HttpServletRequest request) {
+//        // 1.获取token
+//        String authorization = request.getHeader("authorization");
+//        // 2.解析 token
+//        String[] token = authorization.split(" ");
+//        String Id;
+//        try {
+//            Claims claims = JwtUtil.parseJWT(token[1]);
+//            Id = claims.getSubject();
+//        } catch (Exception e) {
+//            throw new CustomException(HttpStatus.SC_OK, CustomConstant.AUTHENTICATION_ERROR);
+//        }
+        // 1.获取token
+        String id = CustomUtils.getJwt2Value(request);
+        // 格式 project::33
+        String redisKey = CustomConstant.TEMP_PROJECT_PREFIX + id;
+        // 3.把对象转为String存入redis
+        String projectStr = JSON.toJSONString(projectVO);
+        R<String> stringR = iRedisClientFeign.setRedisKeyValueWithTimeout(redisKey, projectStr, CustomConstant.EXPIRED_TIME, TimeUnit.MINUTES);
+        boolean success = stringR.isSuccess();
+        return R.status(success);
     }
 }

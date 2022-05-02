@@ -1,7 +1,12 @@
 package xiaozaiyi.crowd.util;
 
+import io.jsonwebtoken.Claims;
+import org.apache.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import xiaozaiyi.crowd.constant.CustomConstant;
+import xiaozaiyi.crowd.exception.CustomException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -66,5 +71,36 @@ public class CustomUtils {
         }
     }
 
+
+    /***
+     * 用请求头中的token获取用户id
+     *
+     * @param request
+     * @return Value
+     */
+    public static String getJwt2Value(HttpServletRequest request) {
+        // 1.获取token
+        String authorization = request.getHeader("authorization");
+
+        if (!StringUtils.hasText(authorization)) {
+            //"token为空，禁止访问!"
+            throw new RuntimeException(CustomConstant.ERROR_TOKEN);
+        }
+        // 如果带了 Bearer
+        if (authorization.startsWith("Bearer null")) {
+            //"token格式不正确，禁止访问!"
+            throw new CustomException(HttpStatus.SC_OK, CustomConstant.ERROR_TOKEN);
+        }
+        // 2.解析 token
+        String[] token = authorization.split(" ");
+        String Value;
+        try {
+            Claims claims = JwtUtil.parseJWT(token[1]);
+            Value = claims.getSubject();
+        } catch (Exception e) {
+            throw new CustomException(HttpStatus.SC_OK, CustomConstant.AUTHENTICATION_ERROR);
+        }
+        return Value;
+    }
 
 }

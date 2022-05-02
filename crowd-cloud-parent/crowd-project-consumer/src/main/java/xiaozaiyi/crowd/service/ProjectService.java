@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import xiaozaiyi.crowd.util.api.R;
 import xiaozaiyi.crowd.vo.ProjectVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,4 +20,12 @@ public interface ProjectService {
      * @return 地址列表
      */
     R<ProjectVO> fileUpload(List<MultipartFile> file);
+
+    /**
+     * 创建项目
+     *
+     * @param projectVO
+     * @return
+     */
+    R<ProjectVO> saveProject(ProjectVO projectVO, HttpServletRequest request);
 }
