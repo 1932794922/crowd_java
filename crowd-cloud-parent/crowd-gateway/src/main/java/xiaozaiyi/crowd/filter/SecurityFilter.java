@@ -68,6 +68,7 @@ public class SecurityFilter implements GlobalFilter, Ordered {
         }
         List<String> authorizationList = exchange.getRequest().getHeaders().get("authorization");
 
+        assert authorizationList != null;
         String token = authorizationList.get(0);
 
         if (!StringUtils.hasText(token)) {

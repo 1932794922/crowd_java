@@ -9,3 +9,4 @@ xiaozaiyi\crowd\util\api\ResultCode.class
 xiaozaiyi\crowd\util\JwtUtil.class
 xiaozaiyi\crowd\util\CustomUtils.class
 xiaozaiyi\crowd\util\SendUtil$1.class
+xiaozaiyi\crowd\util\QOssUploadUtil.class

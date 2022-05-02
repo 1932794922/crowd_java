@@ -8,10 +8,12 @@ import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.server.ResponseStatusException;
+import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.exception.CustomException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 重写父类返回的结果
@@ -30,14 +32,18 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
         Map<String, Object> errorAttributes = new HashMap<>();
         try {
             Throwable errorClass = getError(request);
-            if ( errorClass instanceof CustomException ){
+            if (errorClass instanceof CustomException) {
                 CustomException error = (CustomException) errorClass;
                 String message = error.getMessage();
                 Integer code = error.getCode();
                 errorAttributes.put("message", message);
+                if (Objects.equals(CustomConstant.NO_LOGIN_USER, message)) {
+                    errorAttributes.put("success", false);
+                } else {
+                    errorAttributes.put("success", true);
+                }
                 errorAttributes.put("status", code);
-                errorAttributes.put("success", true);
-            }else{
+            } else {
                 ResponseStatusException responseError = (ResponseStatusException) errorClass;
                 errorAttributes.put("message", errorClass.getMessage());
                 errorAttributes.put("status", responseError.getStatus().value());

@@ -16,6 +16,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
@@ -60,8 +61,8 @@ public class SendUtil {
         Properties properties = new Properties();
         properties.getProperty("configuration.properties");
         InputStream resourceAsStream = SendUtil.class.getClassLoader().getResourceAsStream("configuration.properties");
-        // 解决中文乱码问题
 
+        // 解决中文乱码问题
         BufferedReader bf = null;
         if (resourceAsStream != null) {
             bf = new BufferedReader(new InputStreamReader(resourceAsStream));
@@ -145,7 +146,16 @@ public class SendUtil {
             e.printStackTrace();
         } finally {
             try {
-                bf.close();
+                if (resourceAsStream != null) {
+                    resourceAsStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (bf != null) {
+                    bf.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

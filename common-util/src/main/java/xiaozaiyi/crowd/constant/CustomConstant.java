@@ -76,4 +76,6 @@ public class CustomConstant {
     public static final long EXPIRED_TIME = 30;
 
     public static final String IDENTITY_IS_OVERDUE = "身份过期,请重新登录";
+
+    public static final String UPLOAD_FAILED = "上传失败";
 }

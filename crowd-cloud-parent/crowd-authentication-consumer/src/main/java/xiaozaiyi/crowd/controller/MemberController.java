@@ -59,8 +59,7 @@ public class MemberController {
 
 
     @PostMapping("/login")
-    public R<HashMap<String, String>> memberLogin(@RequestBody MemberVO memberVO) {
-
+    public R<HashMap<String, String>> memberLogin(@RequestBody MemberVO memberVO) throws InterruptedException {
         R<MemberVO> memberVOR = memberService.memberLogin(memberVO);
         boolean success = memberVOR.isSuccess();
         if (!success) {

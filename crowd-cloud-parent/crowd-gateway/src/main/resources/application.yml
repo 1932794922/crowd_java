@@ -4,7 +4,12 @@ server:
 spring:
   application:
     name: august-gateway
-
+  servlet:
+    multipart:
+      # 设置总上传数据总大小
+      max-request-size: 50MB
+      # 允许上传的文件最大值
+      max-file-size: 50MB
   redis:
     host: localhost
     port: 6379
@@ -17,12 +22,17 @@ spring:
       discovery:
         locator:
           enabled: true # 启动 discovery 网关集成,可以实现服务发现
+
       routes:
        - id: member
          uri: lb://august-authentication
          predicates:
            - Path=/member/**
-         filters:
+
+       - id: project
+         uri: lb://august-view-project
+         predicates:
+           - Path=/project/**
 
 
 eureka:

@@ -1,5 +1,6 @@
 package xiaozaiyi.crowd.service.imp;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ import java.util.Objects;
  * @Time: 2022-04-10   15:57
  */
 @Service
+@Slf4j
 public class LoginUserImpl implements LoginService {
 
     @Autowired
@@ -40,30 +42,35 @@ public class LoginUserImpl implements LoginService {
 
         String loginAcct = admin.getLoginAcct();
         String userPswd = admin.getUserPswd();
+        Map<String, Object> map = null;
+        try {
+            // 2. 传入用户密码
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(loginAcct, userPswd);
+            Authentication authenticate = authenticationManager.authenticate(authentication);
 
-        // 2. 传入用户密码
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(loginAcct, userPswd);
-        Authentication authenticate = authenticationManager.authenticate(authentication);
+            // authenticate 为null 说明认证未通过
+            if (Objects.isNull(authenticate)) {
+                // 3. 如果认证没通过,给出提示
+                throw new CustomException(100, CustomConstant.LOGIN_FAILED);
+            }
+            // 认证成功
+            LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
 
-        // authenticate 为null 说明认证未通过
-        if (Objects.isNull(authenticate)) {
-            // 3. 如果认证没通过,给出提示
-            throw new CustomException(100, CustomConstant.LOGIN_FAILED);
+            SecurityContextHolder.getContext().setAuthentication(authenticate);
+            // 认证通过使用 id 生成 一个jwt返回给前端
+            String id = loginUser.getAdmin().getId().toString();
+            String jwt = JwtUtil.createJWT(id);
+
+            map = new HashMap<>();
+            map.put("token", jwt);
+            map.put("userName", loginUser.getAdmin().getUserName());
+
+            // 把完整的信息存入 redis ,格式  User::id :  loginUser
+            RedisCache.setCacheObject(CustomConstant.REDIS_PREFIX + id, loginUser);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new CustomException(500, CustomConstant.LOGIN_FAILED);
         }
-        // 认证成功
-        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        // 认证通过使用 id 生成 一个jwt返回给前端
-        String id = loginUser.getAdmin().getId().toString();
-        String jwt = JwtUtil.createJWT(id);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("token", jwt);
-        map.put("userName", loginUser.getAdmin().getUserName());
-
-        // 把完整的信息存入 redis ,格式  User::id :  loginUser
-        RedisCache.setCacheObject(CustomConstant.REDIS_PREFIX + id, loginUser);
 
         return map;
     }
