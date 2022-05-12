@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class ReturnVO  implements Serializable {
 	private Integer type;
 	
 	// 支持金额
-	private Integer supportMoney;
+	private BigDecimal supportMoney;
 	
 	// 回报内容介绍
 	private String content;

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xiaozaiyi.crowd.mapper.ProjectRelationShipMapper">
+    <insert id="insertRelationShipProjectWithType" parameterType="list">
+        insert into t_project_type(project_id
+        <if test="typeIdList != null and typeIdList.size > 0">
+            ,type_id
+        </if>
+        ) values
+        <choose>
+            <when test="typeIdList != null and typeIdList.size > 0">
+                <foreach collection="typeIdList" item="typeId" open="" separator="," close="">
+                    (#{projectId},#{typeId})
+                </foreach>
+            </when>
+            <otherwise>
+                (#{projectId})
+            </otherwise>
+        </choose>
+
+
+    </insert>
+    <insert id="insertRelationShipProjectWithTag">
+        insert into t_project_tag(project_id
+        <if test="tagIdList != null and tagIdList.size > 0">
+            ,tag_id
+        </if>
+        ) values
+        <choose>
+            <when test="tagIdList != null and tagIdList.size > 0">
+                <foreach collection="tagIdList" item="tagId" open="" separator="," close="">
+                    (#{projectId},#{tagId})
+                </foreach>
+            </when>
+            <otherwise>
+                (#{projectId})
+            </otherwise>
+        </choose>
+
+    </insert>
+    <insert id="insertRelationShipProjectWithDetailImage">
+        insert into t_project_item_pic(project_id
+        <if test="detailImageUrlList != null and detailImageUrlList.size > 0">
+            ,item_pic_path
+        </if>
+        ) values
+        <choose>
+            <when test="detailImageUrlList != null and detailImageUrlList.size > 0">
+                <foreach collection="detailImageUrlList" item="detailImage" open="" separator="," close="">
+                    (#{projectId},#{detailImage})
+                </foreach>
+            </when>
+            <otherwise>
+                (#{projectId})
+            </otherwise>
+        </choose>
+    </insert>
+
+    <!--    <insert id="insertRelationShipProjectWithReturn">-->
+    <!--        insert into t_return(project_id, type)-->
+    <!--    </insert>-->
+    <!--    -->
+</mapper>

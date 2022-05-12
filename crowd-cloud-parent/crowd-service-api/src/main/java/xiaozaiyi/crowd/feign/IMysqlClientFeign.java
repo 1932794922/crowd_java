@@ -1,12 +1,14 @@
 package xiaozaiyi.crowd.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import xiaozaiyi.crowd.po.MemberPO;
 import xiaozaiyi.crowd.util.api.R;
+import xiaozaiyi.crowd.vo.DetailProjectVO;
+import xiaozaiyi.crowd.vo.ProjectTypeVO;
+import xiaozaiyi.crowd.vo.ProjectVO;
+
+import java.util.List;
 
 /**
  * 调用远程 mysql provider
@@ -43,6 +45,22 @@ public interface IMysqlClientFeign {
     @PostMapping("/client/member/save")
     R<MemberPO> saveMemberPO(@RequestBody MemberPO memberPO);
 
+
     @PostMapping("/client/member/login")
     R<MemberPO> memberLoginByAcctPassword(@RequestBody MemberPO memberPO);
+
+    /**
+     * 保存项目信息
+     *
+     * @param projectVO projectVO对象对象
+     * @return 返回保存后的主键
+     */
+    @RequestMapping("/client/project/save")
+    R<ProjectVO> saveProject(@RequestBody ProjectVO projectVO, @RequestParam("memberId") Integer memberId);
+
+    @RequestMapping("/client/project/type/get")
+    R<List<ProjectTypeVO>> getProject();
+
+    @RequestMapping("/client/project/detail/get")
+    R<DetailProjectVO> queryProjectDetail(@RequestParam(value = "id") Integer id);
 }

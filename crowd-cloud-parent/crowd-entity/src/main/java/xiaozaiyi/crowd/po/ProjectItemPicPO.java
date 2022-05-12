@@ -19,6 +19,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectItemPicPO implements Serializable {
+
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
     /**
      * 
      */
@@ -35,6 +39,4 @@ public class ProjectItemPicPO implements Serializable {
      */
     private String itemPicPath;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

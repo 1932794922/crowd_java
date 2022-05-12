@@ -1,11 +1,9 @@
 package xiaozaiyi.crowd.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import xiaozaiyi.crowd.po.MemberPO;
 import xiaozaiyi.crowd.util.api.R;
 
-// 这里要继承 IService
-public interface MemberService extends IService<MemberPO> {
+public interface MemberService {
 
     MemberPO getMemberPOByLoginAcct(String loginAcct);
 

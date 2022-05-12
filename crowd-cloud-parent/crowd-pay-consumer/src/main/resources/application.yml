@@ -1,0 +1,41 @@
+server:
+  port: 8009
+
+spring:
+  application:
+    name: august-pay
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+
+feign:
+  client:
+    config:
+      default:
+        #建立连接所用的时间，适用于网络状况正常的情况下，两端连接所需要的时间
+        ConnectTimeOut: 50000
+        #指建立连接后从服务端读取到可用资源所用的时间
+        ReadTimeOut: 50000
+
+aliyun:
+  pay:
+    # 支付宝公钥
+    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhtXuiSC3H4JevQakd06T9L/KkLaEE767WWfOaFtcW0ove3V6VcZBOUWsU0Tk8JsfTG+WTg5xkRLiDc66SjJE9ljOMGaFUXLqEog1+93uDWe3Vc5q1Oa1YRkN/wpJ2xDeBAzjJ9RV79qMlCvrvuojtYyUD2Djx2O2YntXaoz5dgTgm2hdMb2uEeJQ5jRm1X1QXJEQGeOf9Mw0aF/JRARyV0CyHlmUV3DTfQWSxyG1jOJhazs185f12QElwrL2GLnmkmjutKr6EuU6Cv65ffDmAXgvlBk/O3+XnbPWaemu21L8KStFdHj0RgnCr6dHaiFvf5TT2IgKsTDHUN7GJU9SxwIDAQAB
+    app-id: 2021000119691212
+    charset: utf-8
+    # 支付宝网关
+    gateway-url: https://openapi.alipaydev.com/gateway.do
+    # 商户私钥，您的PKCS8格式RSA2私钥
+    merchant-private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeoBNnEIaFndDSufyKp8Mn0g5a+VrIfLjLURpl4WSQmUT3t+AuXJ1zn8LJbzHYXxzEs8UxpE9rgvupV9/etplLz+V3sN7yAPwI5u55uMtlrVb8iuoOXon+zWsfwqriyukptlbkqioTYX5nhAsPkbRyraoDTA4At3/k6a/17buFz4ABf8VKSccPD23ribzzfZG/j60bsaj1E+7wKFWdpZDKs7b9xp/RAlA7IBQT1gvwtyKuEERHkDKP9vITzZ9529BmyQZpbRj+SvuOij5re8PG+S0LB1NmBzauKKzkUrJ3O9zbZBJBQZRbmD4FUatCOjJ+h5Oa9jRNm4t8DWJ+otUfAgMBAAECggEAdrwbyen0x895oELXZnJtAkGZvT8pVSkGqinrOJeeTx5rIYHhrNJmiUXs6BrzlKKdRh/KW35CdJd3CStdx7emx7i2awFZ4IwcHA3ANBy/Izy9AAx7ZoYdhTz+EqgEgf6gyThTkpZNKHSxyYptPRozmCOmPxGO6bpxYUgLDmsFEwMrCm1cv9DYTOpUt2la7Tcm6bcTRF0losrK+vUdLA456adxjjLarN3sunNL1UmzMAtx90AORk5HZubBw9Jc+N1ACl8wp/FARcWUaNNGV1Ly1e7ur7cD1tQf3pRXZ15r1FvMcpjHpavKnC3itFDCCsmWVF+0NnRJWnNOblvAOaloAQKBgQD3vqx4JDvEjWC6A4h9lP0uGveHgGS+xNh/GnslIJAm//xiV0w/tneI6RqcvdDDs7x14LgR18k80pGgRWMKRaATVvpHCJ3YHcmHIARuyNoG8pgUG97LRYtIrhATpW3GDEYCr3faF6PQjz1H1yqscSw04wYMOkeSLhBXzeR3XJ5S/wKBgQCj6TCc5wcJiC5xmdy/Vbk6juVQNq9jbO6MXEWx5uXKBahTiRB0pS9MyZaM1VLjvbzgjktPSw6HPz4H8LY596Ul5Lo7wCcMfPKKEMy0MXIXddokoXoW1WEXpqZCxApljn1yOhb/5OF6nSKw3eTqojxoqRWbTRmCfBNBMrLyCOsd4QKBgCJV99tS0kHEgmJlePZGvuwz6piKD+xspcC/789OewwcsGMEzFmMNXbxL7IHkLZ+46DGu1wltwtJ98rpsvdKfQwRIvDTXeUFA9hJdLPR/H24A6HN1wv/IHW7Qhkm9VbcfpuCrC661gZiw9CAHrb1nHXb/QuWzDKTVcqFi6OLX5oLAoGAM7ldjtXUwaxIw66DG5noltMLCBIJrL1uVbq0f5xWfTbl1F6XY8fQslGXAaA7xQRV+yLMHxyXXBSX9Zd/WbGNWvTf1AUiDW3Md8cvYdmMoFyfVxnh1hzFw9nh84W7piqd6ZLtORk4EiJOFTQgje5eU8Svvc9JsoSG6vcdwwUPdOECgYEAxpsaO/kSVb+NC/aRyZiv1xdXo6xukBhAn0fifQVFryjxpuPwVj7kDdQbI/Hdsstk5GUi/dwDmmkcnKTInOAuGcmW88gXv/NgaQi1XkVmVslfLpJkVBErfHtNkm2TGGCSksjW6LXhb6LUA3/2Lrb8P62FuBvodRb4lG5T40WBbkc=
+    notify-url: http://你的url/notify
+    # 页面跳转同步通知页面路径
+    return-url: http://你的url/return
+    # 签名方式
+    sign-type: RSA2
+    # 支付宝网关
+    log-path: "D:\\"
+    format: "json"

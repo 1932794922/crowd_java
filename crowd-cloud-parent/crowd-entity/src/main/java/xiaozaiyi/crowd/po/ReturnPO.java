@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 回报实体类
@@ -43,7 +44,7 @@ public class ReturnPO implements Serializable {
     /**
      * 支持金额
      */
-    private Integer supportMoney;
+    private BigDecimal supportMoney;
 
     /**
      * 回报内容

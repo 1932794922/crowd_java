@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "aliyun.pay",
+      "type": "xiaozaiyi.crowd.config.AliPayResourceConfig",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aliyun.pay.alipay-public-key",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.app-id",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.charset",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.format",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.gateway-url",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.log-path",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.merchant-private-key",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.notify-url",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.return-url",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    },
+    {
+      "name": "aliyun.pay.sign-type",
+      "type": "java.lang.String",
+      "sourceType": "xiaozaiyi.crowd.config.AliPayResourceConfig"
+    }
+  ],
+  "hints": []
+}

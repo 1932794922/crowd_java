@@ -1,0 +1,23 @@
+server:
+  port: 7000
+
+spring:
+  application:
+    name: august-order
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+
+feign:
+  client:
+    config:
+      default:
+        #建立连接所用的时间，适用于网络状况正常的情况下，两端连接所需要的时间
+        ConnectTimeOut: 50000
+        #指建立连接后从服务端读取到可用资源所用的时间
+        ReadTimeOut: 50000
+

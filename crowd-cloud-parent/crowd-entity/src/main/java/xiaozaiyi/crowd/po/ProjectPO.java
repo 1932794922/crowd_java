@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 项目实体
@@ -44,7 +45,7 @@ public class ProjectPO implements Serializable {
     /**
      * 筹集金额
      */
-    private Long money;
+    private Integer money;
 
     /**
      * 筹集天数
@@ -65,7 +66,7 @@ public class ProjectPO implements Serializable {
     /**
      * 已筹集到的金额
      */
-    private Long supportMoney;
+    private BigDecimal supportMoney;
 
     /**
      * 支持人数

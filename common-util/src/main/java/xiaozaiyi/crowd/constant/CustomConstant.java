@@ -84,7 +84,14 @@ public class CustomConstant {
 
     public static final String SAVE_SUCCESS = "保存成功";
 
+    public static final String SAVE_FAILED = "保存失败";
+
     public static final String ONLY_ONE_IMAGES = "只能上传一张图片";
 
     public static final String DATA_IS_NULL = "表单数据不能都为空";
+
+    public static final String SAVE_PROJECT_FAILED = "填写项目数据丢失,请重新上传项目信息";
+
+    public static final String GET_TYPE_PROJECT_FAILED = "获取类型项目失败";
+    public static final String GET_TYPE_PROJECT_DETAIL_FAILED = "获取项目详情信息失败";
 }

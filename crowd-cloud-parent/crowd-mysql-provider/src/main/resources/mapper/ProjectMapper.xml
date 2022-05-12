@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xiaozaiyi.crowd.mapper.ProjectMapper">
+
+
+    <resultMap id="selectProjectTypeVOListResultMap" type="xiaozaiyi.crowd.vo.ProjectTypeVO">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="remark" column="remark"/>
+        <!-- List包含的属性
+        property 是属性名称
+        column 通过id查询的时候 portalProjectVoList
+        ofType 是list里属性的类型
+        select 是查询的sql方法的 id (接口加全类名)
+        -->
+        <collection property="portalProjectVoList" ofType="xiaozaiyi.crowd.vo.PortalProjectVo"
+                    column="id"
+                    select="xiaozaiyi.crowd.mapper.ProjectMapper.selectProjectProjectVOList"
+        />
+    </resultMap>
+
+    <!--    List<ProjectTypeVO> selectProjectTypeVOList();-->
+    <select id="selectProjectTypeVOList" resultMap="selectProjectTypeVOListResultMap">
+        select id, `name`, remark
+        from t_type
+    </select>
+
+    <select id="selectProjectProjectVOList" resultType="xiaozaiyi.crowd.vo.PortalProjectVo">
+        SELECT tp.id               projectId,
+               project_name        projectName,
+               header_picture_path headerPicturePath,
+               deploy_date         deployDate,
+               `completion`        completion,
+               supporter           supporter,
+               money               money
+        FROM t_project tp
+                 LEFT JOIN t_project_type tpt
+                           ON tp.id = tpt.project_id
+        WHERE tpt.type_id = #{id}
+        ORDER BY tp.id DESC
+    </select>
+
+
+    <!-- 查询项目详情信息-->
+
+    <resultMap id="selectDetailProjectResultMap" type="xiaozaiyi.crowd.vo.DetailProjectVO">
+        <id property="id" column="id"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_description" property="projectDesc"/>
+        <result column="follower" property="followerNum"/>
+        <result column="money" property="money"/>
+        <result column="support_money" property="supportMoney"/>
+        <result column="completion" property="percentage"/>
+        <result column="deploy_date" property="deployDate"/>
+        <result column="day" property="day"/>
+        <result column="header_picture_path" property="headerPicturePath"/>
+        <collection column="id"
+                    property="detailPicturePath"
+                    select="xiaozaiyi.crowd.mapper.ProjectMapper.selectDetailPicturePath"/>
+        <collection column="id"
+                    property="detailReturnVOList"
+                    select="xiaozaiyi.crowd.mapper.ProjectMapper.selectDetailReturnVOList"/>
+    </resultMap>
+
+    <select id="selectDetailPicturePath" resultType="string">
+        select item_pic_path
+        from t_project_item_pic
+        WHERE project_id = #{id}
+
+    </select>
+
+    <select id="selectDetailReturnVOList" resultType="xiaozaiyi.crowd.vo.DetailReturnVO">
+        select id,
+               support_money   supportMoney,
+               content,
+               count,
+               signal_purchase signalPurchase,
+               purchase        purchase,
+               freight         freight,
+               return_date     returnDate
+        from t_return
+        where project_id = #{id}
+
+    </select>
+    <select id="selectDetailProjectVOByProjectId" resultMap="selectDetailProjectResultMap">
+        select id,
+               project_name,
+               project_description,
+               follower,
+               status,
+               money,
+               `day`,
+               support_money,
+               completion,
+               deploy_date,
+               header_picture_path
+        from t_project
+        where id = #{id}
+    </select>
+
+</mapper>

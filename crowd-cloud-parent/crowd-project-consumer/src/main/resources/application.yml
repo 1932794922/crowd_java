@@ -5,7 +5,6 @@ spring:
   application:
     name: august-view-project
 
-
   servlet:
     multipart:
       max-request-size: 50MB

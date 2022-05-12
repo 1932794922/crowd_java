@@ -208,6 +208,18 @@ public class R<T> implements Serializable {
         return flag ? success(message) : fail(message);
     }
 
+    /**
+     * 返回R
+     *
+     * @param flag 成功状态
+     * @param code 失败状态码
+     * @param message 消息
+     * @return R
+     */
+    public static <T> R<T> status(boolean flag,Integer code,String message) {
+        return flag ? success(message) : fail(code,message);
+    }
+
 
     @Override
     public String toString() {

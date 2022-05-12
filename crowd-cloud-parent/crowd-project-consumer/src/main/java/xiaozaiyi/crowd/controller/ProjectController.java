@@ -1,13 +1,13 @@
 package xiaozaiyi.crowd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xiaozaiyi.crowd.service.ProjectService;
 import xiaozaiyi.crowd.util.api.R;
+import xiaozaiyi.crowd.vo.DetailProjectVO;
+import xiaozaiyi.crowd.vo.MemberConfirmInfoVO;
+import xiaozaiyi.crowd.vo.ProjectTypeVO;
 import xiaozaiyi.crowd.vo.ProjectVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class ProjectController {
 
     @PostMapping("/save")
     public R<ProjectVO> saveProject(@RequestBody ProjectVO projectVO, HttpServletRequest request) {
-        R<ProjectVO> projectVOR = projectService.saveProject(projectVO,request);
+        R<ProjectVO> projectVOR = projectService.saveProject(projectVO, request);
         return R.status(projectVOR.isSuccess());
     }
 
@@ -45,5 +45,31 @@ public class ProjectController {
         return projectVOR;
     }
 
+    @PostMapping("/save/confirm")
+    public R<MemberConfirmInfoVO> saveMemberConfirmInfo(@RequestBody MemberConfirmInfoVO memberConfirmInfoVO, HttpServletRequest request) {
+        R<MemberConfirmInfoVO> memberConfirmInfoVOR = projectService.saveMemberConfirmInfo(memberConfirmInfoVO, request);
+        return R.status(memberConfirmInfoVOR.isSuccess(), memberConfirmInfoVOR.getCode(), memberConfirmInfoVOR.getMessage());
+    }
+
+
+    @GetMapping("/get/type/project")
+    public R<List<ProjectTypeVO>> getProject() {
+        R<List<ProjectTypeVO>> projectTypeVOR = projectService.getProject();
+        boolean success = projectTypeVOR.isSuccess();
+        if (!success) {
+            R.fail(projectTypeVOR.getMessage());
+        }
+        return R.data(projectTypeVOR.getData());
+    }
+
+
+    @GetMapping("/query/project/detail")
+    public R<DetailProjectVO> queryProjectDetail(@RequestParam(value = "id") Integer id) {
+        R<DetailProjectVO> detailProjectVOR = projectService.queryProjectDetail(id);
+        if (!detailProjectVOR.isSuccess()) {
+            return R.fail(detailProjectVOR.getMessage());
+        }
+        return R.data(detailProjectVOR.getData());
+    }
 
 }
