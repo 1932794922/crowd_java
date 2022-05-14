@@ -20,7 +20,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ProjectItemPicPO implements Serializable {
 
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

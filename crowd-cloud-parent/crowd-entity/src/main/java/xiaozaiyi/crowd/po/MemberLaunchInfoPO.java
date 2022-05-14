@@ -33,6 +33,11 @@ public class MemberLaunchInfoPO implements Serializable {
     private Integer memberId;
 
     /**
+     * 项目id
+     */
+    private Integer projectId;
+
+    /**
      * 简单介绍
      */
     private String descriptionSimple;

@@ -18,6 +18,7 @@ import xiaozaiyi.crowd.util.api.R;
  * @Time: 2022-05-03   19:52
  */
 @Service
+@Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
 
     @Autowired

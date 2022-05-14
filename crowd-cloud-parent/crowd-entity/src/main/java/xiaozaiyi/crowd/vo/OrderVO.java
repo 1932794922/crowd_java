@@ -1,28 +1,20 @@
-package xiaozaiyi.crowd.po;
+package xiaozaiyi.crowd.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * 
  * @TableName t_order
  */
-@TableName(value ="t_order")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderPO implements Serializable {
+public class OrderVO  {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -60,6 +52,4 @@ public class OrderPO implements Serializable {
      */
     private String addressId;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

@@ -1,5 +1,6 @@
 package xiaozaiyi.crowd.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
@@ -88,7 +90,8 @@ public class ProjectServiceImpl implements ProjectService {
             MemberLaunchInfoVO memberLaunchInfoVO = projectVO.getMemberLaunchInfoVO();
             MemberLaunchInfoPO memberLaunchInfoPO = new MemberLaunchInfoPO();
             BeanUtils.copyProperties(memberLaunchInfoVO, memberLaunchInfoPO);
-            memberLaunchInfoPO.setMemberId(projectId);
+            memberLaunchInfoPO.setMemberId(memberId);
+            memberLaunchInfoPO.setProjectId(projectId);
             memberLaunchInfoMapper.insert(memberLaunchInfoPO);
             //六、保存项目回报信息
             // 1.获取回报信息
@@ -137,6 +140,14 @@ public class ProjectServiceImpl implements ProjectService {
     public R<DetailProjectVO> queryProjectDetail(Integer id) {
         try {
             DetailProjectVO detailProjectVO = projectMapper.selectDetailProjectVOByProjectId(id);
+            LambdaQueryWrapper<MemberLaunchInfoPO> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(MemberLaunchInfoPO::getProjectId, id);
+            MemberLaunchInfoPO memberLaunchInfoPO = memberLaunchInfoMapper.selectOne(queryWrapper);
+            if (memberLaunchInfoPO != null) {
+                MemberLaunchInfoVO memberLaunchInfoVO = new MemberLaunchInfoVO();
+                BeanUtils.copyProperties(memberLaunchInfoPO,memberLaunchInfoVO);
+                detailProjectVO.setMemberLaunchInfoVO(memberLaunchInfoVO);
+            }
             return R.data(detailProjectVO);
         } catch (Exception e) {
             log.error("获取项目详情失败 {} ", e.getMessage());

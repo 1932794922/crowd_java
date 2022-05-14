@@ -34,6 +34,12 @@ spring:
          predicates:
            - Path=/project/**
 
+       - id: order
+         uri: lb://august-order
+         predicates:
+           - Path=/order/**
+
+
 
 eureka:
   client:

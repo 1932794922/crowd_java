@@ -4,9 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import xiaozaiyi.crowd.po.MemberPO;
 import xiaozaiyi.crowd.util.api.R;
-import xiaozaiyi.crowd.vo.DetailProjectVO;
-import xiaozaiyi.crowd.vo.ProjectTypeVO;
-import xiaozaiyi.crowd.vo.ProjectVO;
+import xiaozaiyi.crowd.vo.*;
 
 import java.util.List;
 
@@ -63,4 +61,16 @@ public interface IMysqlClientFeign {
 
     @RequestMapping("/client/project/detail/get")
     R<DetailProjectVO> queryProjectDetail(@RequestParam(value = "id") Integer id);
+
+    @RequestMapping("/client/project/order/get")
+    R<OrderProjectVO> getReturnConfirmInfo(@RequestParam("projectId") Integer projectId);
+
+    @RequestMapping("/client/project/order/address/get")
+    R<List<AddressVO>> getAddress(@RequestParam("memberId") String memberId);
+
+    @RequestMapping("/client/project/order/address/save")
+    R<AddressVO> saveAddress(@RequestBody AddressVO addressVO);
+
+    @RequestMapping("/client/project/order/address/delete")
+    R<AddressVO> deleteAddress(@RequestParam("id") Integer id);
 }

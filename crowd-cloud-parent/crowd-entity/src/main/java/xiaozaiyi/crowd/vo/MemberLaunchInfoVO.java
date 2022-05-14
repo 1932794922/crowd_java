@@ -26,4 +26,5 @@ public class MemberLaunchInfoVO  implements Serializable {
 	// 客服电话
 	private String serviceNum;
 
+
 }

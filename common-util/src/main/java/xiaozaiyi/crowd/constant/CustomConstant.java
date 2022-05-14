@@ -94,4 +94,5 @@ public class CustomConstant {
 
     public static final String GET_TYPE_PROJECT_FAILED = "获取类型项目失败";
     public static final String GET_TYPE_PROJECT_DETAIL_FAILED = "获取项目详情信息失败";
+    public static final String ADDRESS_IS_NULL = "地址信息不能为空";
 }

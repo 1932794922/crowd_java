@@ -35,4 +35,6 @@ public class DetailProjectVO {
     private List<String> detailPicturePath;
     private List<DetailReturnVO> detailReturnVOList;
 
+    private MemberLaunchInfoVO memberLaunchInfoVO;
+
 }
