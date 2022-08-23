@@ -3,6 +3,7 @@ package xiaozaiyi.crowd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author : Crazy_August
@@ -12,6 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AuthenticationMainApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AuthenticationMainApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(AuthenticationMainApplication.class, args);
+//        String[] beanDefinitionNames = run.getBeanDefinitionNames();
+//        System.out.println("===================================");
+//        for (String beanDefinitionName : beanDefinitionNames) {
+//            System.out.println(beanDefinitionName);
+//        }
     }
+
 }

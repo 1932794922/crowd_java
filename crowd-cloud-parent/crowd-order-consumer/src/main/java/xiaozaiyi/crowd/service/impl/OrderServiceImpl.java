@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public R<OrderProjectVO> getReturnConfirmInfo(Integer projectId) {
-        R<OrderProjectVO> orderProjectVO =  iMysqlClientFeign.getReturnConfirmInfo(projectId);
+        R<OrderProjectVO> orderProjectVO = iMysqlClientFeign.getReturnConfirmInfo(projectId);
         return orderProjectVO;
     }
 
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     public R<List<AddressVO>> getAddress(HttpServletRequest request) {
         // 1.获取token解析 获取当前登录id
         String memberId = CustomUtils.getJwt2Value(request);
-        R<List<AddressVO>> AddressVO =  iMysqlClientFeign.getAddress(memberId);
+        R<List<AddressVO>> AddressVO = iMysqlClientFeign.getAddress(memberId);
         return AddressVO;
     }
 
@@ -42,13 +42,15 @@ public class OrderServiceImpl implements OrderService {
         // 1.获取token解析 获取当前登录id
         String memberId = CustomUtils.getJwt2Value(request);
         addressVO.setMemberId(Integer.valueOf(memberId));
-        R<AddressVO> addressVO1 =  iMysqlClientFeign.saveAddress(addressVO);
+        R<AddressVO> addressVO1 = iMysqlClientFeign.saveAddress(addressVO);
         return addressVO1;
     }
 
     @Override
     public R<AddressVO> deleteAddress(Integer id) {
-        R<AddressVO> addressVO =  iMysqlClientFeign.deleteAddress(id);
+        R<AddressVO> addressVO = iMysqlClientFeign.deleteAddress(id);
         return addressVO;
     }
+
+
 }

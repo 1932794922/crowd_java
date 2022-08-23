@@ -65,7 +65,7 @@
         </property>
     </bean>
 
-    <!-- 配置 mapperScannerConfigurer来扫描Mapper所在的包-->
+    <!-- 配置 mapperScannerConfigurer 来扫描Mapper所在的包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="xiaozaiyi.crowd.mapper"/>
     </bean>
@@ -83,7 +83,7 @@
     <!--        <property name="testOnBorrow" value="true"/>-->
     <!--    </bean>-->
 
-    <!-- Spring-redis连接池管理工厂 -->
+    <!-- Spring-redis 连接池管理工厂 -->
     <!--spring-data-redis2.0以上的配置-->
     <bean id="redisStandaloneConfiguration"
           class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">

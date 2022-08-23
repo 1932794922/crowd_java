@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 
@@ -38,7 +39,7 @@ public class OrderPO implements Serializable {
     /**
      * 订单金额
      */
-    private Double orderAmount;
+    private BigDecimal orderAmount;
 
     /**
      * 是否开发票（0 不开，1 开）

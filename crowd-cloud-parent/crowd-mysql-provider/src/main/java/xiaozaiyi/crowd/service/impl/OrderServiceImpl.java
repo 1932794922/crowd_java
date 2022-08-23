@@ -11,15 +11,21 @@ import xiaozaiyi.crowd.constant.CustomConstant;
 import xiaozaiyi.crowd.mapper.AddressMapper;
 import xiaozaiyi.crowd.mapper.MemberLaunchInfoMapper;
 import xiaozaiyi.crowd.mapper.OrderMapper;
+import xiaozaiyi.crowd.mapper.OrderProjectMapper;
 import xiaozaiyi.crowd.po.AddressPO;
 import xiaozaiyi.crowd.po.MemberLaunchInfoPO;
+import xiaozaiyi.crowd.po.OrderPO;
+import xiaozaiyi.crowd.po.OrderProjectPO;
 import xiaozaiyi.crowd.service.OrderService;
 import xiaozaiyi.crowd.util.api.R;
 import xiaozaiyi.crowd.vo.AddressVO;
 import xiaozaiyi.crowd.vo.MemberLaunchInfoVO;
 import xiaozaiyi.crowd.vo.OrderProjectVO;
+import xiaozaiyi.crowd.vo.OrderVO;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author : Crazy_August
@@ -35,10 +41,16 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Autowired
+    private OrderProjectMapper orderProjectMapper;
+
+
+    @Autowired
     private MemberLaunchInfoMapper memberLaunchInfoMapper;
 
     @Autowired
     private AddressMapper addressMapper;
+
+
 
     @Override
     public R<OrderProjectVO> getReturnConfirmInfo(Integer projectId) {
@@ -98,14 +110,46 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     public R<AddressVO> deleteAddress(Integer id) {
         try {
             addressMapper.deleteById(id);
             return R.success(CustomConstant.DELETE_SUCCESS);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("删除地址失败，地址id：{}", id);
             return R.fail(CustomConstant.DELETE_FAILED);
         }
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+    public R<OrderVO> creatOrder(OrderVO orderVO) {
+        try {
+            // 1.计算订单总价
+            BigDecimal orderAmount = orderVO.getSupportPrice()
+                    .multiply(BigDecimal.valueOf(orderVO.getReturnCount()))
+                    .add(BigDecimal.valueOf(orderVO.getFreight()));
+            orderVO.setOrderAmount(orderAmount);
+            // 2.生成订单
+            String order = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+            String addressId = orderVO.getAddressId();
+            String orderNum = order + addressId;
+            orderVO.setOrderNum(orderNum);
+
+            OrderPO orderPO = new OrderPO();
+            BeanUtils.copyProperties(orderVO, orderPO);
+            orderMapper.insert(orderPO);
+            Integer id = orderPO.getId();
+            orderVO.setOrderId(id);
+            OrderProjectPO orderProjectPO = new OrderProjectPO();
+            BeanUtils.copyProperties(orderVO, orderProjectPO);
+            orderProjectMapper.insert(orderProjectPO);
+
+            return R.data(orderVO);
+        } catch (Exception e) {
+            log.error("创建订单失败 {}", e.getMessage());
+            return R.fail("创建订单失败");
+        }
+    }
+
 }

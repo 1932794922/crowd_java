@@ -9,6 +9,7 @@ import xiaozaiyi.crowd.service.OrderService;
 import xiaozaiyi.crowd.util.api.R;
 import xiaozaiyi.crowd.vo.AddressVO;
 import xiaozaiyi.crowd.vo.OrderProjectVO;
+import xiaozaiyi.crowd.vo.OrderVO;
 
 import java.util.List;
 
@@ -31,20 +32,26 @@ public class OrderProvideController {
 
 
     @RequestMapping("/client/project/order/address/get")
-    public R<List<AddressVO>> getAddress(@RequestParam("memberId") String memberId){
+    public R<List<AddressVO>> getAddress(@RequestParam("memberId") String memberId) {
         R<List<AddressVO>> AddressVO = orderService.getAddress(memberId);
         return AddressVO;
     }
 
     @RequestMapping("/client/project/order/address/save")
-    R<AddressVO> saveAddress(@RequestBody AddressVO addressVO){
+    R<AddressVO> saveAddress(@RequestBody AddressVO addressVO) {
         R<AddressVO> addressVOR = orderService.saveAddress(addressVO);
         return addressVOR;
     }
 
     @RequestMapping("/client/project/order/address/delete")
-    R<AddressVO> deleteAddress(@RequestParam("id") Integer id){
+    R<AddressVO> deleteAddress(@RequestParam("id") Integer id) {
         R<AddressVO> addressVOR = orderService.deleteAddress(id);
         return addressVOR;
+    }
+
+    @RequestMapping("/client/project/order/creat")
+    R<OrderVO> creatOrder(@RequestBody OrderVO orderVO) {
+        R<OrderVO> orderVOR = orderService.creatOrder(orderVO);
+        return orderVOR;
     }
 }

@@ -18,11 +18,10 @@ import java.util.Map;
  * @description :
  * @Time: 2022-04-27   22:30
  */
-public class
-MyErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
+public class MyErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     public MyErrorWebExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
-                                 ErrorProperties errorProperties, ApplicationContext applicationContext) {
+                                      ErrorProperties errorProperties, ApplicationContext applicationContext) {
         super(errorAttributes, resourceProperties, errorProperties, applicationContext);
     }
 

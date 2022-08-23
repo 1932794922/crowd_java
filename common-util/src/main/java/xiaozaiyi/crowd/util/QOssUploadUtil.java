@@ -182,7 +182,7 @@ public class QOssUploadUtil {
                 // 文件路径
                 // 指定要上传的文件
                 InputStream inputStream = multipartFile.getInputStream();
-                // 创建上传Object的Metadata
+                // 创建上传Object的 Metadata
                 ObjectMetadata objectMetadata = new ObjectMetadata();
                 objectMetadata.setContentLength(inputStream.available());
                 String contentType = multipartFile.getContentType();

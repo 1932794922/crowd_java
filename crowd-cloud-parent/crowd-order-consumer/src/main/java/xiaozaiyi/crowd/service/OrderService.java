@@ -11,7 +11,6 @@ public interface OrderService {
     /**
      * 查询订单详情
      * @param projectId
-     * @param returnId
      * @return
      */
     R<OrderProjectVO> getReturnConfirmInfo(Integer projectId);
@@ -37,4 +36,7 @@ public interface OrderService {
      * @return
      */
     R<AddressVO> deleteAddress(Integer id);
+
+
+
 }

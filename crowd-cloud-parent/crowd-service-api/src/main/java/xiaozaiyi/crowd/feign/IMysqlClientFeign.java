@@ -73,4 +73,7 @@ public interface IMysqlClientFeign {
 
     @RequestMapping("/client/project/order/address/delete")
     R<AddressVO> deleteAddress(@RequestParam("id") Integer id);
+
+    @RequestMapping("/client/project/order/creat")
+    R<OrderVO> creatOrder(@RequestBody OrderVO orderVO);
 }

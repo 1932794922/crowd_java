@@ -39,6 +39,11 @@ spring:
          predicates:
            - Path=/order/**
 
+       - id: pay
+         uri: lb://august-pay
+         predicates:
+           - Path=/payorder/**
+
 
 
 eureka:
@@ -49,5 +54,5 @@ eureka:
 exclude:
   auth:
     #不需要授权验证的请求地址,可设置多个,使用逗号分隔开,会跳过AuthFilter授权验证
-    path: /member/register,/member/get/phone/code,/member/login,/error
+    path: /member/register,/member/get/phone/code,/member/login,/error,/payorder/return
 
