@@ -108,25 +108,26 @@ public class PayServiceImpl implements Payservice {
                 //付款金额
                 String orderAmount = new String(request.getParameter("total_amount")
                         .getBytes("ISO-8859-1"), "UTF-8");
-
+                // TODO
                 // 保存到数据库
-                String id = CustomUtils.getJwt2Value(request);
-                String key = "pay_" + id;
-                R<String> redisValueByKey = iRedisClientFeign.getRedisValueByKey(key);
-                if (!redisValueByKey.isSuccess()) {
-                    return R.fail("订单不存在！");
-                }
-                String orderVOStr = redisValueByKey.getData();
-                OrderVO orderVO = JSON.parseObject(orderVOStr, OrderVO.class);
-                orderVO.setOrderNum(orderNum);
-                orderVO.setPayOrderNum(payOrderNum);
-                orderVO.setOrderAmount(new BigDecimal(orderAmount));
-                R<OrderVO> orderVOR = iMysqlClientFeign.creatOrder(orderVO);
-                if (!orderVOR.isSuccess()) {
-                    return R.fail("订单创建失败！");
-                }
-                // 删除redis中的订单信息
-                iRedisClientFeign.removeRedisValueByKey(key);
+//                String id = CustomUtils.getJwt2Value(request);
+//                String key = "pay_" + id;
+//                R<String> redisValueByKey = iRedisClientFeign.getRedisValueByKey(key);
+//                if (!redisValueByKey.isSuccess()) {
+//                    return R.fail("订单不存在！");
+//                }
+//                String orderVOStr = redisValueByKey.getData();
+//                OrderVO orderVO = JSON.parseObject(orderVOStr, OrderVO.class);
+//                orderVO.setOrderNum(orderNum);
+//                orderVO.setPayOrderNum(payOrderNum);
+//                orderVO.setOrderAmount(new BigDecimal(orderAmount));
+////                R<OrderVO> orderVOR = iMysqlClientFeign.creatOrder(orderVO);
+////                if (!orderVOR.isSuccess()) {
+////                    return R.fail("订单创建失败！");
+////                }
+//                // 删除redis中的订单信息
+//                iRedisClientFeign.removeRedisValueByKey(key);
+                log.error("支付成功");
                 return R.data("支付成功！");
             } else {
                 return R.fail("验签失败");

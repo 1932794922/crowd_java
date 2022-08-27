@@ -35,6 +35,7 @@ crowd_vue
 crowd_vue/*
 /common-reverse/
 /target/
+/target/*
 /admin-parent/admin-entity/target/
 /admin-parent/admin-entity/target/*
 /rebel.xml/
